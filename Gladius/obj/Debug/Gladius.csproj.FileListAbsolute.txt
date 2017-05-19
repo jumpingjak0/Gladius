@@ -8,3 +8,4 @@ c:\program files (x86)\microsoft visual studio\2017\community\Gladius\Gladius\ob
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Gladius\Gladius\obj\Debug\Gladius.UI.resources
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Gladius\Gladius\bin\Debug\Engine.dll
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Gladius\Gladius\bin\Debug\Engine.pdb
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Gladius\Gladius\obj\Debug\Gladius.BattlefieldForm.resources

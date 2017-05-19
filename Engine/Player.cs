@@ -5,25 +5,23 @@ using System.Text;
 
 namespace Engine
 {
-    public class Player
+    static public class Player
     {
-        public string Name;
-        public int Gold;
-        public List<Gladiator> MyTeam;
-        public List<Item> Inventory;
-        public List<Trophy> Trophies;
-        public Town CurrentTown;
+        static public string Name;
+        static public int Gold;
+        static public List<Gladiator> MyTeam;
+        static public List<Item> Inventory;
+        static public List<Trophy> Trophies;
+        static public Town CurrentTown;
 
-        public Player(string name)
+        static Player()
         {
-            Name = name;
+            Name = "Jack";
             Gold = 10;
             MyTeam = null;
             Inventory = null;
             Trophies = null;
             CurrentTown = null;
-
-
         }
     }
 

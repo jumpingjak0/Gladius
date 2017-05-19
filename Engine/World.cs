@@ -45,6 +45,10 @@ namespace Engine
         public const int TOURNAMENT_ID_PROCTORIA1 = 1;
 
         public const int BATTLEFIELD_ID_PROCTORIA = 1;
+        public const int BATTLEFIELD_ID_CTHAKMIJ = 2;
+        public const int BATTLEFIELD_ID_ELLANERAAN = 3;
+        public const int BATTLEFIELD_ID_ATTELAIR = 4;
+
 
         public const int ARENA_ID_PROCTORIA = 1;
 
@@ -62,7 +66,10 @@ namespace Engine
         }
         public static void PopulateBattleFields()
         {
-            BattleFields.Add(new BattleField(BATTLEFIELD_ID_PROCTORIA, "000111000111000111000111", 3, 8));
+            BattleFields.Add(new BattleField(BATTLEFIELD_ID_PROCTORIA, "1100011011011000111000001000001110001101101100011", 7, 7));
+            BattleFields.Add(new BattleField(BATTLEFIELD_ID_CTHAKMIJ, "111110000111110000111110000111110011111001111100001111100001111100111110011111001111100001111100", 8, 12));
+            BattleFields.Add(new BattleField(BATTLEFIELD_ID_ELLANERAAN, "110011110011110011011110111111111111011110110011110011110011", 6, 10));
+            BattleFields.Add(new BattleField(BATTLEFIELD_ID_ATTELAIR, "000000001100011110011110001100001100011110011110001100000000", 6, 10));
         }
         public static void PopulateTrophy()
         {

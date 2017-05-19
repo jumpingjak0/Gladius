@@ -103,6 +103,7 @@
             this.btnArena.TabIndex = 3;
             this.btnArena.Text = "Arena";
             this.btnArena.UseVisualStyleBackColor = true;
+            this.btnArena.Click += new System.EventHandler(this.btnArena_Click);
             // 
             // btnTravel
             // 
