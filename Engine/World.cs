@@ -33,7 +33,7 @@ namespace Engine
 
         public const int TOWN_ID_PROCTORIA = 1;
         public const int TOWN_ID_CTHAKMIJ = 2;
-        public const int TOWN_ID_ELLERAN = 3;
+        public const int TOWN_ID_ELLANERAAN = 3;
         public const int TOWN_ID_ATTELAIR = 4;
 
         public const int WEAPON_ID_FISTS = 1;
@@ -91,7 +91,18 @@ namespace Engine
                 "The City of Steel. Fueled by advanced technologies, every building is made of cold metal.",
                     ArenaByID(ARENA_ID_PROCTORIA), GladiatorShopByID(GLADIATOR_SHOP_ID_PROCTORIA),
                         ItemShopByID(ITEM_SHOP_ID_PROCTORIA)));
-            
+            Towns.Add(new Town(TOWN_ID_ATTELAIR, "Attelair",
+                "The City of Glass. Spires of every colour imagineable reach for the sky.",
+                    ArenaByID(ARENA_ID_PROCTORIA), GladiatorShopByID(GLADIATOR_SHOP_ID_PROCTORIA),
+                        ItemShopByID(ITEM_SHOP_ID_PROCTORIA)));
+            Towns.Add(new Town(TOWN_ID_CTHAKMIJ, "Cthak Mij",
+                "The City of the Desert. Squat buildings of baked mud line the dusty roads in this town.",
+                    ArenaByID(ARENA_ID_PROCTORIA), GladiatorShopByID(GLADIATOR_SHOP_ID_PROCTORIA),
+                        ItemShopByID(ITEM_SHOP_ID_PROCTORIA)));
+            Towns.Add(new Town(TOWN_ID_ELLANERAAN, "Ellaneraan",
+                "The City of Trees. This town is build on decks radiating out from the giant trees of the forest.",
+                    ArenaByID(ARENA_ID_PROCTORIA), GladiatorShopByID(GLADIATOR_SHOP_ID_PROCTORIA),
+                        ItemShopByID(ITEM_SHOP_ID_PROCTORIA)));
         }
 
         public static void createTestTownProctoria()

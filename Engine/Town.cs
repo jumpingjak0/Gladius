@@ -32,5 +32,9 @@ namespace Engine
             return stringOut;
         }
 
+        public string UpdateTownDescription()
+        {
+            return this.ToString();
+        }
     }
 }

@@ -12,5 +12,20 @@ namespace Engine
         public List<Gladiator> MyTeam;
         public List<Item> Inventory;
         public List<Trophy> Trophies;
+        public Town CurrentTown;
+
+        public Player(string name)
+        {
+            Name = name;
+            Gold = 10;
+            MyTeam = null;
+            Inventory = null;
+            Trophies = null;
+            CurrentTown = null;
+
+
+        }
     }
+
+    
 }
