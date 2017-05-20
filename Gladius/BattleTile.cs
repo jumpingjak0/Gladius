@@ -20,32 +20,41 @@ namespace Gladius
     public class BattleTile
     {
         public Button Button;
-        Occupied State;
+        public Gladiator gladiator;
         int Height;
         int Width;
         int TopLoc;
         int LeftLoc;
+        public int X;
+        public int Y;
+        RichTextBox BattleMonitor;
+        static BattleTile SelectedTile;
         
 
-        public BattleTile(Panel panelIn, Occupied state, int height, int width, int i, int j, int mapSquare)
+        public BattleTile(Panel panelIn, Occupied state, int height, int width, int x, int y, int mapSquare, RichTextBox bm, BattleTile selectedTile)
         {
             Button = new Button();
-            State = state;
+            gladiator = null;
             Height = height;
             Width = width;
-            TopLoc = height * i;
-            LeftLoc = width * j;
+            TopLoc = height * x;
+            LeftLoc = width * y;
+            X = x;
+            Y = y;
+            BattleMonitor = bm;
+            SelectedTile = selectedTile;
+            Button.Click += new EventHandler(buttonClicked);
 
             switch (mapSquare)
             {
                 case 0:
                     {
-                        Button.BackColor = Color.Green;
+                        Button.BackColor = Color.Aqua;
                         break;
                     }
                 case 1:
                     {
-                        Button.BackColor = Color.Red;
+                        Button.BackColor = Color.Aquamarine;
                         break;
                     }
             }
@@ -55,22 +64,70 @@ namespace Gladius
             Button.Top = TopLoc;
             
 
-            if(state == Occupied.Occupied)
+                   
+        }
+
+        public void ShowTileIsOccupied()
+        {
+            Button.Font = new Font(Button.Font.FontFamily, 20);
+            
+
+            if (this.gladiator != null)
             {
-                Button.Text = "G";
+                if (gladiator.InTeam)
+                {
+                    Button.ForeColor = Color.Green;
+                }
+                else
+                {
+                    Button.ForeColor = Color.Red;
+                }
+                Button.Text = this.gladiator.Name;
             }
             else
             {
                 Button.Text = "";
 
             }
-
-            
-        
-            
         }
 
-        
+        public void buttonClicked(object sender, EventArgs e)
+        {
+            if(BattleMethods.SelectedGladiator == null)
+            {
+                if(this.gladiator != null)
+                {
+                    BattleMethods.SelectedGladiator = this.gladiator;
+                    BattleMonitor.Text = BattleMethods.SelectedGladiator.Name + " selected." + Environment.NewLine;
+                    SelectedTile = this;                  
+                }
+            }
+            else
+            {
+                if (this.gladiator == null)
+                {
+                    this.gladiator = BattleMethods.SelectedGladiator;
+                    BattleMethods.SelectedGladiator = null;
+                    SelectedTile.gladiator = null;
+                    SelectedTile.Button.Text = "";
+                    SelectedTile = null;
+                    ShowTileIsOccupied();
+                    BattleMonitor.Clear();
+
+                }
+                else if (this == SelectedTile)
+                {
+                    BattleMonitor.Text += Environment.NewLine + "You are already here.";
+                }
+
+
+                else
+                {
+                    BattleMonitor.Text += Environment.NewLine + "You cannot move here as this tile is occupied.";
+                }
+            }
+
+        }
 
     }
 }

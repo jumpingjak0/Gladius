@@ -20,7 +20,7 @@ namespace Engine
 
         //temp bit
         public static readonly List<Gladiator> GladiatorList = new List<Gladiator>(); 
-        public static void PopulateEnemyGladiators()
+        public static void PopulateGladiatorList()
         {
             GladiatorList.Add(new Gladiator("Praxos", "A hulking menace."));
             GladiatorList[0].ExpAdd = 400;
@@ -148,7 +148,7 @@ namespace Engine
             PopulateArmour();
             PopulateBattleFields();
             PopulateTrophy();
-            PopulateEnemyGladiators(); //temp
+            PopulateGladiatorList(); //temp
             PopulateTempGladList(); //temp
             PopulateTournaments();
             PopulateArena();

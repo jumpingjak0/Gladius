@@ -24,6 +24,8 @@ namespace Engine
         public int RewardEXP;
         public bool InTeam;
         public int Value;
+        public int XLoc;
+        public int YLoc;
         
         public Gladiator(string name, string description)
         {

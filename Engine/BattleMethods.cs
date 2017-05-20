@@ -5,7 +5,14 @@ using System.Text;
 
 namespace Engine
 {
-    public class BattleMethods
+    public static class BattleMethods
     {
+        static public Gladiator SelectedGladiator;
+
+
+        static BattleMethods()
+        {
+            SelectedGladiator = null;
+        }
     }
 }

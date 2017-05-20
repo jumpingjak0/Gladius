@@ -22,6 +22,7 @@ namespace Engine
             Inventory = null;
             Trophies = null;
             CurrentTown = null;
+            MySchool = new List<Gladiator>();
         }
 
        

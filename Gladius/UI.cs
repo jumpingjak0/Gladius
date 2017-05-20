@@ -21,7 +21,8 @@ namespace Gladius
             World.Create();           
             Player.CurrentTown = World.TownByID(World.TOWN_ID_PROCTORIA);
             rtbTownDescription.Text = Player.CurrentTown.UpdateTownDescription();
-            Player.MySchool = World.GladiatorList;
+            
+            
         }
 
         private void btnTravel_Click(object sender, EventArgs e)
@@ -60,7 +61,7 @@ namespace Gladius
 
         private void btnArena_Click(object sender, EventArgs e)
         {
-            BattlefieldForm bf = new BattlefieldForm(this);
+            BattlefieldForm bf = new BattlefieldForm(this, Player.MySchool, World.GladiatorList);
             bf.Show();
             panelMenu.Visible = false;
             panelTravel.Visible = false;
@@ -82,9 +83,12 @@ namespace Gladius
             dgvMyGladiators.RowHeadersVisible = false;
             dgvMyGladiators.ColumnCount = 1;
             dgvMyGladiators.Rows.Clear();
-            foreach(Gladiator gladiator in Player.MySchool)
+            if (Player.MySchool != null)
             {
-                dgvMyGladiators.Rows.Add(gladiator.Name);
+                foreach (Gladiator gladiator in Player.MySchool)
+                {
+                    dgvMyGladiators.Rows.Add(gladiator.Name);
+                }
             }
             dgvMyGladiators.Width = 100;
             dgvMyGladiators.Columns[0].Width = 97;

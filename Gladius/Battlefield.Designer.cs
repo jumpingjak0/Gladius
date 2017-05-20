@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtbBattle = new System.Windows.Forms.RichTextBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -40,13 +40,13 @@
             this.panel1.Size = new System.Drawing.Size(556, 272);
             this.panel1.TabIndex = 1;
             // 
-            // richTextBox1
+            // rtbBattle
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 74);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(556, 142);
-            this.richTextBox1.TabIndex = 2;
-            this.richTextBox1.Text = "";
+            this.rtbBattle.Location = new System.Drawing.Point(12, 74);
+            this.rtbBattle.Name = "rtbBattle";
+            this.rtbBattle.Size = new System.Drawing.Size(556, 142);
+            this.rtbBattle.TabIndex = 2;
+            this.rtbBattle.Text = "";
             // 
             // lblTitle
             // 
@@ -64,7 +64,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 512);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.rtbBattle);
             this.Controls.Add(this.panel1);
             this.Name = "BattlefieldForm";
             this.Text = "Battlefield";
@@ -75,7 +75,7 @@
 
         #endregion
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtbBattle;
         private System.Windows.Forms.Label lblTitle;
     }
 }

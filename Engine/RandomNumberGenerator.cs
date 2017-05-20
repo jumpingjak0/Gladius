@@ -5,7 +5,15 @@ using System.Text;
 
 namespace Engine
 {
-    class RandomNumberGenerator
+    public static class RandomNumberGenerator
     {
+        
+        static Random rnd = new Random();
+
+        public static int RandomNumber(int min, int max)
+        {
+            return rnd.Next(min, max);
+        }
+
     }
 }
