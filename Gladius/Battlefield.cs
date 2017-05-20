@@ -12,13 +12,14 @@ namespace Gladius
 {
     public partial class BattlefieldForm : Form
     {
-        
-        public BattlefieldForm()
+        private readonly UI formUI;
+        public BattlefieldForm(UI form1)
         {
             InitializeComponent();
+            formUI = form1; 
+            lblTitle.Text = Player.CurrentTown.Name + " Arena";           
             Populate();
-
-
+            
         }
 
         public void Populate()
@@ -44,5 +45,13 @@ namespace Gladius
         {
             
         }
+
+        
+            
+        private void BattlefieldForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            formUI.MenuVisibilty(true);
+        }
+    
     }
 }

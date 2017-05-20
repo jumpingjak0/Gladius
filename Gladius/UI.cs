@@ -12,25 +12,22 @@ namespace Gladius
 {
     public partial class UI : Form
     {
-        
-        
-
+        public bool MyGladList;
         public UI()
         {
-            InitializeComponent();
+            InitializeComponent();           
             panelTravel.Visible = false;
-            World.createTestTownProctoria();           
+            panelList.Visible = false;
+            World.Create();           
             Player.CurrentTown = World.TownByID(World.TOWN_ID_PROCTORIA);
             rtbTownDescription.Text = Player.CurrentTown.UpdateTownDescription();
-
-            
-
+            Player.MySchool = World.GladiatorList;
         }
 
         private void btnTravel_Click(object sender, EventArgs e)
-        {
-            panelMenu.Visible = false;
+        {            
             panelTravel.Visible = true;
+            panelList.Visible = false;
         }
         private void btnProctoria_Click(object sender, EventArgs e)
         {
@@ -63,8 +60,75 @@ namespace Gladius
 
         private void btnArena_Click(object sender, EventArgs e)
         {
-            BattlefieldForm bf = new BattlefieldForm();
+            BattlefieldForm bf = new BattlefieldForm(this);
             bf.Show();
+            panelMenu.Visible = false;
+            panelTravel.Visible = false;
+            panelList.Visible = false;
+        }
+
+        public void MenuVisibilty(bool visibility)
+        {
+            panelMenu.Visible = visibility;
+        }
+
+        private void btnMyGlad_Click(object sender, EventArgs e)
+        {
+            MyGladList = true;
+            panelList.Visible = true;
+            panelTravel.Visible = false;
+            buttonPuchase.Visible = false;
+            labelGold.Visible = false;
+            dgvMyGladiators.RowHeadersVisible = false;
+            dgvMyGladiators.ColumnCount = 1;
+            dgvMyGladiators.Rows.Clear();
+            foreach(Gladiator gladiator in Player.MySchool)
+            {
+                dgvMyGladiators.Rows.Add(gladiator.Name);
+            }
+            dgvMyGladiators.Width = 100;
+            dgvMyGladiators.Columns[0].Width = 97;
+            
+        }
+
+        private void btnViewGladiator_Click(object sender, EventArgs e)
+        {
+            string gladName = (string)dgvMyGladiators.CurrentCell.Value;
+            GladiatorView gv = new GladiatorView(Gladiator.PickGladitorFromDGV(MyGladList, gladName), MyGladList);
+            gv.Show();
+            
+        }
+
+        private void btnGladShop_Click(object sender, EventArgs e)
+        {
+            MyGladList = false;
+            panelList.Visible = true;
+            panelTravel.Visible = false;
+            buttonPuchase.Visible = true;
+            labelGold.Visible = true;
+            labelGold.Text = "Gold: " + Player.Gold.ToString();
+            dgvMyGladiators.RowHeadersVisible = false;
+            dgvMyGladiators.ColumnCount = 2;
+            dgvMyGladiators.Columns[0].Name = "Name";
+            dgvMyGladiators.Columns[1].Name = "Price";
+            dgvMyGladiators.Rows.Clear();
+            foreach (Gladiator gladiator in World.TempGladList ) 
+            {
+                dgvMyGladiators.Rows.Add(gladiator.Name, gladiator.Value);
+            }
+            dgvMyGladiators.Width = 150;
+            dgvMyGladiators.Columns[0].Width = 97;
+            dgvMyGladiators.Columns[1].Width = 47;
+        }
+
+        private void buttonPuchase_Click(object sender, EventArgs e)
+        {
+            World.GladiatorShopByID(World.GLADIATOR_SHOP_ID_PROCTORIA).PurchaseGladiator(Gladiator.PickGladitorFromDGV(MyGladList,(string) dgvMyGladiators.CurrentCell.Value));
+            dgvMyGladiators.Rows.Clear();
+            foreach (Gladiator gladiator in World.TempGladList)
+            {
+                dgvMyGladiators.Rows.Add(gladiator.Name, gladiator.Value);
+            }
         }
     }
 }

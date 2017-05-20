@@ -9,9 +9,14 @@ namespace Engine
     {
         public int ArmourValue;
 
-        public Armour(int id, string name, string description, int armourValue) : base(id, name, description)
+        public Armour(int id, int value, string name, string description, int armourValue) : base(id, value, name, description)
         {
             ArmourValue = armourValue;
+        }
+
+        public override string ToString()
+        {
+            return Name + "   Armour Value: " + ArmourValue;
         }
     }
 }

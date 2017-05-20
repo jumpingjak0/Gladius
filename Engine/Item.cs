@@ -8,12 +8,14 @@ namespace Engine
     public class Item
     {
         public int ID;
+        public int Value;
         public string Name;
         public string Description;
 
-        public Item(int id, string name, string description)
+        public Item(int id, int value, string name, string description)
         {
             ID = id;
+            Value = value;
             Name = name;
             Description = description;
         }

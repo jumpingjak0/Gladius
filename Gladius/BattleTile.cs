@@ -40,12 +40,12 @@ namespace Gladius
             {
                 case 0:
                     {
-                        Button.BackColor = Color.Aqua;
+                        Button.BackColor = Color.Green;
                         break;
                     }
                 case 1:
                     {
-                        Button.BackColor = Color.Aquamarine;
+                        Button.BackColor = Color.Red;
                         break;
                     }
             }

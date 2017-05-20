@@ -18,16 +18,36 @@ namespace Engine
         public static readonly List<GladiatorShop> GladiatorShops = new List<GladiatorShop>();
         public static readonly List<ItemShop> ItemShops = new List<ItemShop>();
 
-        public static readonly List<Gladiator> EnemyGladiators = new List<Gladiator>(); //temp bit
+        //temp bit
+        public static readonly List<Gladiator> GladiatorList = new List<Gladiator>(); 
         public static void PopulateEnemyGladiators()
         {
-            EnemyGladiators.Add(new Gladiator("Praxos", "A hulking menace.", 5, 10, 10, 1, 0, 10, WeaponByID(WEAPON_ID_FISTS), ArmourByID(ARMOUR_ID_RAGS)));
-        } 
+            GladiatorList.Add(new Gladiator("Praxos", "A hulking menace."));
+            GladiatorList[0].ExpAdd = 400;
+            GladiatorList.Add(new Gladiator("Nervanos", "A graceful dancer of death."));
+            GladiatorList.Add(new Gladiator("Testudos", "A man of pure muscle."));
 
-        public static readonly List<Item> ShopItems = new List<Item>();
+        }
+        public static readonly List<Gladiator> TempGladList = new List<Gladiator>();
+        public static void PopulateTempGladList()
+        { 
+            TempGladList.Add(new Gladiator("Quintos", "A hulking menace."));
+            TempGladList.Add(new Gladiator("Decimidos", "A graceful dancer of death."));
+            TempGladList.Add(new Gladiator("Brutus", "A man of pure muscle."));
+
+        }
+
+        public static  List<Item> ShopItems = new List<Item>();
         public static void PopulateShopItems()
         {
-            ShopItems.Add(new Item(2, "test", "test description"));
+            foreach(Weapon weapon in Weapons)
+            {
+                ShopItems.Add(weapon);
+            }
+            foreach(Armour armour in Armours)
+            {
+                ShopItems.Add(armour);
+            }
         } //end of temp bit
         
 
@@ -37,8 +57,13 @@ namespace Engine
         public const int TOWN_ID_ATTELAIR = 4;
 
         public const int WEAPON_ID_FISTS = 1;
+        public const int WEAPON_ID_SHORT_SWORD = 2;
+        public const int WEAPON_ID_SPEAR = 3;
 
         public const int ARMOUR_ID_RAGS = 1;
+        public const int ARMOUR_ID_LEATHER = 2;
+        public const int ARMOUR_ID_CHAINMAIL = 3;
+        public const int ARMOUR_ID_PLATE = 4;
 
         public const int TROPHY_ID_PROCTORIA1 = 1;
 
@@ -58,11 +83,16 @@ namespace Engine
 
         public static void PopulateWeapons()
         {
-            Weapons.Add(new Weapon(WEAPON_ID_FISTS, "Fists", "Used for punching", 3));
+            Weapons.Add(new Weapon(WEAPON_ID_FISTS, 10, "Fists", "Used for punching", 2, 5 ));
+            Weapons.Add(new Weapon(WEAPON_ID_SHORT_SWORD, 25, "Short Sword", "A small blade useful in close quarters", 4, 7));
+            Weapons.Add(new Weapon(WEAPON_ID_SPEAR, 40, "Spear", "A long weapon for stabbing at range", 5, 10));
         }
         public static void PopulateArmour()
         {
-            Armours.Add(new Armour(ARMOUR_ID_RAGS, "Rags", "Useless at protecting against damage", 1));
+            Armours.Add(new Armour(ARMOUR_ID_RAGS, 10, "Rags", "Useless at protecting against damage", 1));
+            Armours.Add(new Armour(ARMOUR_ID_LEATHER, 40, "Leather Jerkin", "Protects against glancing blows", 3));
+            Armours.Add(new Armour(ARMOUR_ID_CHAINMAIL, 50, "Chainmail", "Good protection against damage", 5));
+            Armours.Add(new Armour(ARMOUR_ID_PLATE, 100, "Plate", "The best protection available", 7));
         }
         public static void PopulateBattleFields()
         {
@@ -77,7 +107,7 @@ namespace Engine
         }
         public static void PopulateTournaments()
         {
-            Tournaments.Add(new Tournament(TOURNAMENT_ID_PROCTORIA1, "Proctorian Open", "The easiest tournament in Proctoria", TrophyByID(TROPHY_ID_PROCTORIA1), 10, 20, EnemyGladiators));
+            Tournaments.Add(new Tournament(TOURNAMENT_ID_PROCTORIA1, "Proctorian Open", "The easiest tournament in Proctoria", TrophyByID(TROPHY_ID_PROCTORIA1), 10, 20, GladiatorList));
         }
         public static void PopulateArena()
         {
@@ -85,7 +115,7 @@ namespace Engine
         }
         public static void PopulateGladiatorShop()
         {
-            GladiatorShops.Add(new GladiatorShop(GLADIATOR_SHOP_ID_PROCTORIA, "Proctoria Combat School", "Titus", "A harsh place to grow up.", EnemyGladiators));
+            GladiatorShops.Add(new GladiatorShop(GLADIATOR_SHOP_ID_PROCTORIA, "Proctoria Combat School", "Titus", "A harsh place to grow up.", TempGladList));
         }
         public static void PopulateItemShop()
         {
@@ -112,13 +142,14 @@ namespace Engine
                         ItemShopByID(ITEM_SHOP_ID_PROCTORIA)));
         }
 
-        public static void createTestTownProctoria()
+        public static void Create()
         {
             PopulateWeapons();
             PopulateArmour();
             PopulateBattleFields();
             PopulateTrophy();
-            PopulateEnemyGladiators();
+            PopulateEnemyGladiators(); //temp
+            PopulateTempGladList(); //temp
             PopulateTournaments();
             PopulateArena();
             PopulateGladiatorShop();

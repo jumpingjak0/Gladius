@@ -15,5 +15,22 @@ namespace Engine
             
             Stock = stock;
         }
+
+        public void PurchaseGladiator (Gladiator boughtGladiator)
+        {
+            Player.MySchool.Add(boughtGladiator);
+            Gladiator gladToRemove = null;
+            foreach(Gladiator glad in Stock)
+            {
+                if(boughtGladiator.Name == glad.Name)
+                {
+                    gladToRemove = glad;
+                    break;
+                }
+            }
+            
+            Stock.Remove(gladToRemove);
+               
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Engine
         public int ID;
         public int[,] Field;
 
-        public BattleField(int id, string coordinates, int width, int height)
+        public BattleField(int id, string coordinates, int width, int height) 
         {
             ID = id;
             int[,] field = new int[height, width];
