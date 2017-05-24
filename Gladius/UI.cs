@@ -127,11 +127,19 @@ namespace Gladius
 
         private void buttonPuchase_Click(object sender, EventArgs e)
         {
-            World.GladiatorShopByID(World.GLADIATOR_SHOP_ID_PROCTORIA).PurchaseGladiator(Gladiator.PickGladitorFromDGV(MyGladList,(string) dgvMyGladiators.CurrentCell.Value));
-            dgvMyGladiators.Rows.Clear();
-            foreach (Gladiator gladiator in World.TempGladList)
+
+            try
             {
-                dgvMyGladiators.Rows.Add(gladiator.Name, gladiator.Value);
+                World.GladiatorShopByID(World.GLADIATOR_SHOP_ID_PROCTORIA).PurchaseGladiator(Gladiator.PickGladitorFromDGV(MyGladList, (string)dgvMyGladiators.CurrentCell.Value));
+                dgvMyGladiators.Rows.Clear();
+                foreach (Gladiator gladiator in World.TempGladList)
+                {
+                    dgvMyGladiators.Rows.Add(gladiator.Name, gladiator.Value);
+                }
+            }
+            catch
+            {
+                return;
             }
         }
     }

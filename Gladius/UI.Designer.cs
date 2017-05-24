@@ -47,6 +47,7 @@
             this.buttonPuchase = new System.Windows.Forms.Button();
             this.btnViewGladiator = new System.Windows.Forms.Button();
             this.dgvMyGladiators = new System.Windows.Forms.DataGridView();
+            this.buttonInventory = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.panelTravel.SuspendLayout();
             this.panelList.SuspendLayout();
@@ -64,15 +65,16 @@
             // 
             // panelMenu
             // 
+            this.panelMenu.Controls.Add(this.buttonInventory);
             this.panelMenu.Controls.Add(this.btnSave);
             this.panelMenu.Controls.Add(this.btnTravel);
             this.panelMenu.Controls.Add(this.btnArena);
             this.panelMenu.Controls.Add(this.btnMyGlad);
             this.panelMenu.Controls.Add(this.btnGladShop);
             this.panelMenu.Controls.Add(this.btnShop);
-            this.panelMenu.Location = new System.Drawing.Point(12, 275);
+            this.panelMenu.Location = new System.Drawing.Point(12, 236);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(116, 178);
+            this.panelMenu.Size = new System.Drawing.Size(116, 223);
             this.panelMenu.TabIndex = 1;
             // 
             // btnSave
@@ -244,6 +246,15 @@
             this.dgvMyGladiators.Size = new System.Drawing.Size(100, 200);
             this.dgvMyGladiators.TabIndex = 0;
             // 
+            // buttonInventory
+            // 
+            this.buttonInventory.Location = new System.Drawing.Point(3, 177);
+            this.buttonInventory.Name = "buttonInventory";
+            this.buttonInventory.Size = new System.Drawing.Size(109, 23);
+            this.buttonInventory.TabIndex = 6;
+            this.buttonInventory.Text = "Inventory";
+            this.buttonInventory.UseVisualStyleBackColor = true;
+            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,5 +296,6 @@
         private System.Windows.Forms.Button btnViewGladiator;
         private System.Windows.Forms.Label labelGold;
         private System.Windows.Forms.Button buttonPuchase;
+        private System.Windows.Forms.Button buttonInventory;
     }
 }

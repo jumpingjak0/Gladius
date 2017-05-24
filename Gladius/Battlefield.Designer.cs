@@ -47,6 +47,7 @@
             this.rtbBattle.Size = new System.Drawing.Size(556, 142);
             this.rtbBattle.TabIndex = 2;
             this.rtbBattle.Text = "";
+            this.rtbBattle.TextChanged += new System.EventHandler(this.rtbBattle_TextChanged);
             // 
             // lblTitle
             // 

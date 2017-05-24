@@ -22,10 +22,10 @@ namespace Gladius
         {
             InitializeComponent();
             formUI = form1; 
-            lblTitle.Text = Player.CurrentTown.Name + " Arena";           
-            Populate();
+            lblTitle.Text = Player.CurrentTown.Name + " Arena";                      
             MyTeam = myTeam;
             EnemyTeam = enemyTeam;
+            Populate();
             AddGladiatorsToArenaField(MyTeam, EnemyTeam, ArenaField);
             foreach(BattleTile bt in ArenaField)
             {
@@ -49,12 +49,13 @@ namespace Gladius
                 {
                     Occupied occ;                   
                     occ = Occupied.Empty;                  
-                    BattleTile square = new BattleTile(panel1, occ, panelHeight, panelWidth, i, j, map[i,j], rtbBattle, SelectedTile);
+                    BattleTile square = new BattleTile(panel1, occ, panelHeight, panelWidth, j, i, map[j,i], rtbBattle, SelectedTile, MyTeam, EnemyTeam, ArenaField, height);
                     panel1.Controls.Add(square.Button);
-                    arenaField[i,j] = square;                   
+                    arenaField[j,i] = square;                   
                 }
             }
-            ArenaField = arenaField;            
+            ArenaField = arenaField;
+            BattleTile.ArenaField = ArenaField;
         }
 
         private void AddGladiatorsToArenaField(List<Gladiator> myTeam, List<Gladiator> enemyTeam, BattleTile[,] field)
@@ -66,8 +67,11 @@ namespace Gladius
                 {
                     i++;
                     field[0, i].gladiator = glad;
-                    glad.XLoc = field[0, i].X;
-                    glad.YLoc = field[0, i].Y;
+                    glad.State = State.alive;
+                    glad.CurrentHP = glad.MaxHP;
+                    glad.CurrentTile = field[0, i];
+                    glad.X = field[0, i].X;
+                    glad.Y = field[0, i].Y;
 
                 }
             }
@@ -77,7 +81,12 @@ namespace Gladius
                 foreach (Gladiator glad in enemyTeam)
                 {
                     i++;
-                    field[(field.GetLength(1) - 1), i].gladiator = glad;
+                    field[(field.GetLength(0) - 1), i].gladiator = glad;
+                    glad.CurrentHP = glad.MaxHP;
+                    glad.CurrentTile = field[(field.GetLength(0) - 1), i];
+                    glad.Y = field[(field.GetLength(0) - 1), i].Y;
+                    glad.X = field[(field.GetLength(0) - 1), i].X;
+                    
                 }
             }
         }
@@ -91,6 +100,13 @@ namespace Gladius
         {
             formUI.MenuVisibilty(true);
         }
-    
+
+        private void rtbBattle_TextChanged(object sender, EventArgs e)
+        {
+            rtbBattle.SelectionStart = rtbBattle.Text.Length;
+            rtbBattle.ScrollToCaret();
+        }
+
+        
     }
 }

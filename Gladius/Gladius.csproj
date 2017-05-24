@@ -48,7 +48,6 @@
     <Compile Include="Battlefield.Designer.cs">
       <DependentUpon>Battlefield.cs</DependentUpon>
     </Compile>
-    <Compile Include="BattleTile.cs" />
     <Compile Include="GladiatorView.cs">
       <SubType>Form</SubType>
     </Compile>

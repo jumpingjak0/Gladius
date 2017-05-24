@@ -7,12 +7,12 @@ namespace Engine
 {
     public static class BattleMethods
     {
-        static public Gladiator SelectedGladiator;
+        static public Gladiator AttackingGladiator;
+        static public Gladiator DefendingGladiator;
 
 
-        static BattleMethods()
-        {
-            SelectedGladiator = null;
-        }
+        
+
+
     }
 }

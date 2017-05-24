@@ -32,6 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -42,6 +44,7 @@
     <Compile Include="Armour.cs" />
     <Compile Include="BattleField.cs" />
     <Compile Include="BattleMethods.cs" />
+    <Compile Include="BattleTile.cs" />
     <Compile Include="Gladiator.cs" />
     <Compile Include="GladiatorShop.cs" />
     <Compile Include="InventoryItem.cs" />

@@ -32,7 +32,7 @@ namespace Engine
         public static void PopulateTempGladList()
         { 
             TempGladList.Add(new Gladiator("Quintos", "A hulking menace."));
-            TempGladList.Add(new Gladiator("Decimidos", "A graceful dancer of death."));
+            TempGladList.Add(new Gladiator("Decidos", "A graceful dancer of death."));
             TempGladList.Add(new Gladiator("Brutus", "A man of pure muscle."));
 
         }

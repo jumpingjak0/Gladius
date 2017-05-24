@@ -5,6 +5,11 @@ using System.Text;
 
 namespace Engine
 {
+    public enum State
+    {
+        dead,
+        alive
+    }
     public class Gladiator
     {
 
@@ -24,8 +29,13 @@ namespace Engine
         public int RewardEXP;
         public bool InTeam;
         public int Value;
-        public int XLoc;
-        public int YLoc;
+        public int movementRange;
+        public State State;
+        public bool HasMoved;
+        public int X;
+        public int Y;
+        public BattleTile CurrentTile;
+        public int attackRange;
         
         public Gladiator(string name, string description)
         {
@@ -41,6 +51,8 @@ namespace Engine
             LevelUpGladiator();
             RewardEXP = 100 * (Level / 2);
             Value = 100 * Level;
+            movementRange = 2;
+            attackRange = 1;
         }
 
         public int ExpAdd
