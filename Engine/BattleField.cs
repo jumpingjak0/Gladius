@@ -13,7 +13,7 @@ namespace Engine
         public BattleField(int id, string coordinates, int width, int height) 
         {
             ID = id;
-            int[,] field = new int[height, width];
+            int[,] field = new int[width, height];
             char[] coords = coordinates.ToCharArray();
 
             int i = 0;
@@ -21,7 +21,7 @@ namespace Engine
             {
                 for(int k = 0; k < width; k++)
                 {
-                    field[j, k] = (int)Char.GetNumericValue(coords[i]);
+                    field[k, j] = (int)Char.GetNumericValue(coords[i]);
                     i++;
                 }
             }

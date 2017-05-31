@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rtbTownDescription = new System.Windows.Forms.RichTextBox();
+            this.rtbUI = new System.Windows.Forms.RichTextBox();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.buttonInventory = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnTravel = new System.Windows.Forms.Button();
             this.btnArena = new System.Windows.Forms.Button();
@@ -44,24 +45,23 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panelList = new System.Windows.Forms.Panel();
             this.labelGold = new System.Windows.Forms.Label();
-            this.buttonPuchase = new System.Windows.Forms.Button();
+            this.buttonPurchase = new System.Windows.Forms.Button();
             this.btnViewGladiator = new System.Windows.Forms.Button();
-            this.dgvMyGladiators = new System.Windows.Forms.DataGridView();
-            this.buttonInventory = new System.Windows.Forms.Button();
+            this.dgvUI = new System.Windows.Forms.DataGridView();
             this.panelMenu.SuspendLayout();
             this.panelTravel.SuspendLayout();
             this.panelList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMyGladiators)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUI)).BeginInit();
             this.SuspendLayout();
             // 
-            // rtbTownDescription
+            // rtbUI
             // 
-            this.rtbTownDescription.Location = new System.Drawing.Point(12, 12);
-            this.rtbTownDescription.Name = "rtbTownDescription";
-            this.rtbTownDescription.ReadOnly = true;
-            this.rtbTownDescription.Size = new System.Drawing.Size(549, 213);
-            this.rtbTownDescription.TabIndex = 0;
-            this.rtbTownDescription.Text = "";
+            this.rtbUI.Location = new System.Drawing.Point(12, 12);
+            this.rtbUI.Name = "rtbUI";
+            this.rtbUI.ReadOnly = true;
+            this.rtbUI.Size = new System.Drawing.Size(549, 213);
+            this.rtbUI.TabIndex = 0;
+            this.rtbUI.Text = "";
             // 
             // panelMenu
             // 
@@ -76,6 +76,16 @@
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(116, 223);
             this.panelMenu.TabIndex = 1;
+            // 
+            // buttonInventory
+            // 
+            this.buttonInventory.Location = new System.Drawing.Point(3, 177);
+            this.buttonInventory.Name = "buttonInventory";
+            this.buttonInventory.Size = new System.Drawing.Size(109, 23);
+            this.buttonInventory.TabIndex = 6;
+            this.buttonInventory.Text = "Inventory";
+            this.buttonInventory.UseVisualStyleBackColor = true;
+            this.buttonInventory.Click += new System.EventHandler(this.buttonInventory_Click);
             // 
             // btnSave
             // 
@@ -134,6 +144,7 @@
             this.btnShop.TabIndex = 0;
             this.btnShop.Text = "Shop";
             this.btnShop.UseVisualStyleBackColor = true;
+            this.btnShop.Click += new System.EventHandler(this.btnShop_Click);
             // 
             // panelTravel
             // 
@@ -198,9 +209,9 @@
             // panelList
             // 
             this.panelList.Controls.Add(this.labelGold);
-            this.panelList.Controls.Add(this.buttonPuchase);
+            this.panelList.Controls.Add(this.buttonPurchase);
             this.panelList.Controls.Add(this.btnViewGladiator);
-            this.panelList.Controls.Add(this.dgvMyGladiators);
+            this.panelList.Controls.Add(this.dgvUI);
             this.panelList.Location = new System.Drawing.Point(153, 229);
             this.panelList.Name = "panelList";
             this.panelList.Size = new System.Drawing.Size(297, 217);
@@ -215,15 +226,15 @@
             this.labelGold.TabIndex = 3;
             this.labelGold.Text = "(gold)";
             // 
-            // buttonPuchase
+            // buttonPurchase
             // 
-            this.buttonPuchase.Location = new System.Drawing.Point(192, 108);
-            this.buttonPuchase.Name = "buttonPuchase";
-            this.buttonPuchase.Size = new System.Drawing.Size(91, 23);
-            this.buttonPuchase.TabIndex = 2;
-            this.buttonPuchase.Text = "Purchase";
-            this.buttonPuchase.UseVisualStyleBackColor = true;
-            this.buttonPuchase.Click += new System.EventHandler(this.buttonPuchase_Click);
+            this.buttonPurchase.Location = new System.Drawing.Point(192, 108);
+            this.buttonPurchase.Name = "buttonPurchase";
+            this.buttonPurchase.Size = new System.Drawing.Size(91, 23);
+            this.buttonPurchase.TabIndex = 2;
+            this.buttonPurchase.Text = "Purchase";
+            this.buttonPurchase.UseVisualStyleBackColor = true;
+            this.buttonPurchase.Click += new System.EventHandler(this.buttonPuchase_Click);
             // 
             // btnViewGladiator
             // 
@@ -235,25 +246,16 @@
             this.btnViewGladiator.UseVisualStyleBackColor = true;
             this.btnViewGladiator.Click += new System.EventHandler(this.btnViewGladiator_Click);
             // 
-            // dgvMyGladiators
+            // dgvUI
             // 
-            this.dgvMyGladiators.AllowUserToAddRows = false;
-            this.dgvMyGladiators.AllowUserToDeleteRows = false;
-            this.dgvMyGladiators.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMyGladiators.Location = new System.Drawing.Point(3, 4);
-            this.dgvMyGladiators.Name = "dgvMyGladiators";
-            this.dgvMyGladiators.ReadOnly = true;
-            this.dgvMyGladiators.Size = new System.Drawing.Size(100, 200);
-            this.dgvMyGladiators.TabIndex = 0;
-            // 
-            // buttonInventory
-            // 
-            this.buttonInventory.Location = new System.Drawing.Point(3, 177);
-            this.buttonInventory.Name = "buttonInventory";
-            this.buttonInventory.Size = new System.Drawing.Size(109, 23);
-            this.buttonInventory.TabIndex = 6;
-            this.buttonInventory.Text = "Inventory";
-            this.buttonInventory.UseVisualStyleBackColor = true;
+            this.dgvUI.AllowUserToAddRows = false;
+            this.dgvUI.AllowUserToDeleteRows = false;
+            this.dgvUI.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUI.Location = new System.Drawing.Point(3, 4);
+            this.dgvUI.Name = "dgvUI";
+            this.dgvUI.ReadOnly = true;
+            this.dgvUI.Size = new System.Drawing.Size(100, 200);
+            this.dgvUI.TabIndex = 0;
             // 
             // UI
             // 
@@ -262,7 +264,7 @@
             this.ClientSize = new System.Drawing.Size(584, 462);
             this.Controls.Add(this.panelList);
             this.Controls.Add(this.panelMenu);
-            this.Controls.Add(this.rtbTownDescription);
+            this.Controls.Add(this.rtbUI);
             this.Controls.Add(this.panelTravel);
             this.Name = "UI";
             this.Text = "Gladius";
@@ -270,14 +272,14 @@
             this.panelTravel.ResumeLayout(false);
             this.panelList.ResumeLayout(false);
             this.panelList.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMyGladiators)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUI)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox rtbTownDescription;
+        private System.Windows.Forms.RichTextBox rtbUI;
         public System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnTravel;
@@ -292,10 +294,10 @@
         private System.Windows.Forms.Button btnProctoria;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelList;
-        private System.Windows.Forms.DataGridView dgvMyGladiators;
+        private System.Windows.Forms.DataGridView dgvUI;
         private System.Windows.Forms.Button btnViewGladiator;
         private System.Windows.Forms.Label labelGold;
-        private System.Windows.Forms.Button buttonPuchase;
+        private System.Windows.Forms.Button buttonPurchase;
         private System.Windows.Forms.Button buttonInventory;
     }
 }

@@ -42,8 +42,8 @@ namespace Gladius
         {
             
             int[,] map = World.BattlefieldByID(Player.CurrentTown.ID).Field;
-            int height = map.GetLength(0);
-            int width = map.GetLength(1);
+            int width = map.GetLength(0);
+            int height = map.GetLength(1);
             BattlefieldForm.ArenaField = new BattleTile[width + 1, height + 1];
             BattleTile[,] arenaField = new BattleTile[width, height];
             int panelWidth = panel1.Width / width;
