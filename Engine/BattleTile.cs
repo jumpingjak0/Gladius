@@ -78,25 +78,27 @@ namespace Engine
 
         public void ShowTileIsOccupied()
         {
-            Button.Font = new Font(Button.Font.FontFamily, 10);
+           Button.Font = new Font(Button.Font.FontFamily, 10);
             
 
-            if (this.gladiator != null)
+            if (gladiator != null)
             {
-                if (gladiator.InTeam)
+                if (gladiator.InPlayersTeam)
                 {
                     Button.ForeColor = Color.Green;
+                    
                 }
                 else
                 {
                     Button.ForeColor = Color.Red;
                 }
-                Button.Text = this.gladiator.Name;
+                Button.Text = gladiator.Name;
             }
             else
             {
-                Button.Text = "";               
+                Button.Text = "";
             }
+            
         }
 
         public void buttonClicked(object sender, EventArgs e)
@@ -130,7 +132,7 @@ namespace Engine
                     }
                     else
                     {
-                        if (this.gladiator.InTeam == SelectedTile.gladiator.InTeam) //can't move in to team mate
+                        if (this.gladiator.InPlayersTeam == SelectedTile.gladiator.InPlayersTeam) //can't move in to team mate
                         {
                             rtbBattleMonitor.Text += "You cannot move here as this tile is occupied." + Environment.NewLine;
                             SelectedTile = null;
@@ -193,7 +195,7 @@ namespace Engine
         }
         public void SelectGladiator(BattleTile clickedTile, RichTextBox rtbBattleMonitor)
         {
-            if (clickedTile.gladiator != null && clickedTile.gladiator.InTeam) //no gladiator selected so selects gladiator
+            if (clickedTile.gladiator != null && clickedTile.gladiator.InPlayersTeam) //no gladiator selected so selects gladiator
             {
                 if (clickedTile.gladiator.HasMoved)
                 {
@@ -216,7 +218,7 @@ namespace Engine
             SelectedTile.gladiator = null;            
             SelectedTile.Button.Text = "";
             SelectedTile = null;
-            ShowTileIsOccupied();
+            targetTile.ShowTileIsOccupied();
         }
         public void AttackGladiator(BattleTile attacker, BattleTile defender, RichTextBox rtbBattleMonitor)
         {
@@ -228,12 +230,12 @@ namespace Engine
             rtbBattleMonitor.Refresh();
             if (defender.gladiator.CurrentHP <= 0)
             {
-                rtbBattleMonitor.Text +=  defender.gladiator.Name + " has fainted." + Environment.NewLine;
+                rtbBattleMonitor.Text +=  defender.gladiator.Name + " has fainted." + Environment.NewLine + Environment.NewLine;
                 rtbBattleMonitor.Refresh();
                 defender.gladiator.State = State.dead;
                 SelectedTile = null;
                 string gladToDelete = "";
-                if(defender.gladiator.InTeam)
+                if(defender.gladiator.InPlayersTeam)
                 {
                     foreach (Gladiator glad in MyTeam)
                     {
@@ -256,7 +258,7 @@ namespace Engine
                     }
                 }
 
-                if(defender.gladiator.InTeam)
+                if(defender.gladiator.InPlayersTeam)
                 {
                     MyTeam.Remove(Gladiator.GladiatorByName(gladToDelete, MyTeam));
                 }
@@ -270,7 +272,7 @@ namespace Engine
             }
             else
             {
-
+                rtbBattleMonitor.Text += Environment.NewLine;
                 SelectedTile = null;
             }
         }
@@ -326,10 +328,10 @@ namespace Engine
         }
         public bool TileIsInAttackRange(BattleTile target)
         {
-            if (this.X > target.X + target.gladiator.attackRange ||
-                    this.X < target.X - target.gladiator.attackRange ||
-                        this.Y > target.Y + target.gladiator.attackRange ||
-                            this.Y < target.Y - target.gladiator.attackRange)
+            if (SelectedTile.gladiator.X > target.X + target.gladiator.attackRange ||
+                    SelectedTile.gladiator.X < target.X - target.gladiator.attackRange ||
+                        SelectedTile.gladiator.Y > target.Y + target.gladiator.attackRange ||
+                            SelectedTile.gladiator.Y < target.Y - target.gladiator.attackRange)
             {
                 return false;
             }
@@ -363,6 +365,45 @@ namespace Engine
             {
                 SelectedTile.AttackGladiator(SelectedTile, NearestTile, rtbBattleMonitor);
             }
+
+            else if(SelectedTile.TileIsInMovementRange(NearestTile))
+            {
+                int XToMove = NearestTile.X - SelectedTile.X;
+                if(XToMove > 0)
+                {
+                    XToMove--;
+                }
+                else if(XToMove < 0)
+                {
+                    XToMove++;
+                }
+
+                int YToMove = NearestTile.Y - SelectedTile.Y;
+                if (YToMove > 0)
+                {
+                    YToMove--;
+                }
+                else if (YToMove < 0)
+                {
+                    YToMove++;
+                }
+
+                int targetX = SelectedTile.X + XToMove;
+                int targetY = SelectedTile.Y + YToMove;
+
+                BattleTile tileToMoveTo = ArenaField[targetX, targetY];
+
+                if(!TargetTileOccupied(tileToMoveTo))
+                {
+                    SelectedTile.MoveGladiator(tileToMoveTo);
+                }
+                else
+                {
+
+                }
+            }
+
+
           
 
         }

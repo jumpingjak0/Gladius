@@ -27,7 +27,7 @@ namespace Engine
         public Weapon WeaponEquipped;
         public Armour ArmourEquipped;
         public int RewardEXP;
-        public bool InTeam;
+        public bool InPlayersTeam;
         public int Value;
         public int movementRange;
         public State State;
@@ -41,7 +41,7 @@ namespace Engine
         {
             Name = name;
             Nickname = null;
-            InTeam = false;
+            InPlayersTeam = false;
             Description = description;
             EXP = 0;
             BaseDamage = 3;
@@ -51,7 +51,7 @@ namespace Engine
             LevelUpGladiator();
             RewardEXP = 100 * (Level / 2);
             Value = 100 * Level;
-            movementRange = 2;
+            movementRange = 3;
             attackRange = 1;
         }
 

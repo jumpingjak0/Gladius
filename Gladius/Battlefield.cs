@@ -15,7 +15,7 @@ namespace Gladius
         private readonly UI formUI;
         List<Gladiator> MyTeam;
         List<Gladiator> EnemyTeam;
-        BattleTile[,] ArenaField;
+        static BattleTile[,] ArenaField;
         public static BattleTile SelectedTile;
 
         public BattlefieldForm(UI form1, List<Gladiator> myTeam, List<Gladiator> enemyTeam)
@@ -29,7 +29,10 @@ namespace Gladius
             AddGladiatorsToArenaField(MyTeam, EnemyTeam, ArenaField);
             foreach(BattleTile bt in ArenaField)
             {
-                bt.ShowTileIsOccupied();
+                if (bt != null)
+                {
+                    bt.ShowTileIsOccupied();
+                }
             }
             
             
@@ -37,10 +40,12 @@ namespace Gladius
 
         public void Populate()
         {
+            
             int[,] map = World.BattlefieldByID(Player.CurrentTown.ID).Field;
             int height = map.GetLength(0);
             int width = map.GetLength(1);
-            BattleTile[,] arenaField = new BattleTile[height, width];
+            BattlefieldForm.ArenaField = new BattleTile[width + 1, height + 1];
+            BattleTile[,] arenaField = new BattleTile[width, height];
             int panelWidth = panel1.Width / width;
             int panelHeight = panel1.Height / height;
             for(int i = 0; i < height; i++)
@@ -54,7 +59,15 @@ namespace Gladius
                     arenaField[j,i] = square;                   
                 }
             }
-            ArenaField = arenaField;
+
+            
+            BattleTile[,] arenafieldTemp = new BattleTile[width + 1, height + 1];
+
+            foreach(BattleTile bt in arenaField)
+            {
+                arenafieldTemp[bt.X, bt.Y] = bt;
+            }
+            BattlefieldForm.ArenaField = arenafieldTemp;
             BattleTile.ArenaField = ArenaField;
         }
 
@@ -66,12 +79,12 @@ namespace Gladius
                 foreach (Gladiator glad in myTeam)
                 {
                     i++;
-                    field[0, i].gladiator = glad;
+                    field[1, i].gladiator = glad;
                     glad.State = State.alive;
                     glad.CurrentHP = glad.MaxHP;
-                    glad.CurrentTile = field[0, i];
-                    glad.X = field[0, i].X;
-                    glad.Y = field[0, i].Y;
+                    glad.CurrentTile = field[1, i];
+                    glad.X = field[1, i].X;
+                    glad.Y = field[1, i].Y;
 
                 }
             }

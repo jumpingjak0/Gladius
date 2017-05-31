@@ -18,7 +18,7 @@ namespace Engine
 
         public void PurchaseGladiator (Gladiator boughtGladiator)
         {
-            boughtGladiator.InTeam = true;
+            boughtGladiator.InPlayersTeam = true;
             Player.MySchool.Add(boughtGladiator);
             Gladiator gladToRemove = null;
             foreach(Gladiator glad in Stock)
