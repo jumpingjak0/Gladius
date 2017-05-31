@@ -12,18 +12,18 @@ namespace Engine
         public static readonly List<Weapon> Weapons = new List<Weapon>();
         public static readonly List<Armour> Armours = new List<Armour>();
         public static readonly List<Trophy> Trophies = new List<Trophy>();
-        public static readonly List<Tournament> Tournaments = new List<Tournament>();
         public static readonly List<BattleField> BattleFields = new List<BattleField>();
         public static readonly List<Arena> Arenas = new List<Arena>();
         public static readonly List<GladiatorShop> GladiatorShops = new List<GladiatorShop>();
         public static readonly List<ItemShop> ItemShops = new List<ItemShop>();
+        public static readonly List<Tournament> WorldTournaments = new List<Tournament>();
 
         //temp bit
         public static readonly List<Gladiator> GladiatorList = new List<Gladiator>(); 
         public static void PopulateGladiatorList()
         {
             GladiatorList.Add(new Gladiator("Praxos", "A hulking menace."));
-            GladiatorList[0].ExpAdd = 400;
+            
             GladiatorList.Add(new Gladiator("Nervanos", "A graceful dancer of death."));
             GladiatorList.Add(new Gladiator("Testudos", "A man of pure muscle."));
 
@@ -52,9 +52,9 @@ namespace Engine
         
 
         public const int TOWN_ID_PROCTORIA = 1;
-        public const int TOWN_ID_CTHAKMIJ = 2;
-        public const int TOWN_ID_ELLANERAAN = 3;
-        public const int TOWN_ID_ATTELAIR = 4;
+        public const int TOWN_ID_ATTELAIR = 2;
+        public const int TOWN_ID_CTHAKMIJ = 3;
+        public const int TOWN_ID_ELLANERAAN = 4;
 
         public const int WEAPON_ID_FISTS = 1;
         public const int WEAPON_ID_SHORT_SWORD = 2;
@@ -65,17 +65,21 @@ namespace Engine
         public const int ARMOUR_ID_CHAINMAIL = 3;
         public const int ARMOUR_ID_PLATE = 4;
 
-        public const int TROPHY_ID_PROCTORIA1 = 1;
-
-        public const int TOURNAMENT_ID_PROCTORIA1 = 1;
+        public const int TOURNAMENT_ID_PROCTORIAOPEN = 11;
+        public const int TOURNAMENT_ID_ATTELAIRROOKIES = 21;
+        public const int TOURNAMENT_ID_CTHAKMIJASPIRANTS = 31;
+        public const int TOURNAMENT_ID_ELLANERAANSAPLINGS = 41;
 
         public const int BATTLEFIELD_ID_PROCTORIA = 1;
-        public const int BATTLEFIELD_ID_CTHAKMIJ = 2;
-        public const int BATTLEFIELD_ID_ELLANERAAN = 3;
-        public const int BATTLEFIELD_ID_ATTELAIR = 4;
+        public const int BATTLEFIELD_ID_ATTELAIR = 2;
+        public const int BATTLEFIELD_ID_CTHAKMIJ = 3;
+        public const int BATTLEFIELD_ID_ELLANERAAN = 4;
 
 
         public const int ARENA_ID_PROCTORIA = 1;
+        public const int ARENA_ID_ATTELAIR = 2;
+        public const int ARENA_ID_CTHAKMIJ = 3;
+        public const int ARENA_ID_ELLANERAAN = 4;
 
         public const int GLADIATOR_SHOP_ID_PROCTORIA = 1;
 
@@ -103,15 +107,34 @@ namespace Engine
         }
         public static void PopulateTrophy()
         {
-            Trophies.Add(new Trophy(TROPHY_ID_PROCTORIA1, "Proctorian Open", "The lowest level tournament available in Proctoria"));
+            Trophies.Add(new Trophy(TOURNAMENT_ID_PROCTORIAOPEN, "Proctorian Open", "A simple silver star."));
+            Trophies.Add(new Trophy(TOURNAMENT_ID_ATTELAIRROOKIES, "Attelair Rookies", "A silicate spire."));
+            Trophies.Add(new Trophy(TOURNAMENT_ID_CTHAKMIJASPIRANTS, "Cthak Mij Aspirants", "A sculpture made from hardened clay."));
+            Trophies.Add(new Trophy(TOURNAMENT_ID_ELLANERAANSAPLINGS, "Ellaneraan Saplings", "A pretty little cup made from living wood."));
         }
         public static void PopulateTournaments()
         {
-            Tournaments.Add(new Tournament(TOURNAMENT_ID_PROCTORIA1, "Proctorian Open", "The easiest tournament in Proctoria", TrophyByID(TROPHY_ID_PROCTORIA1), 10, 20, GladiatorList));
+            WorldTournaments.Add(new Tournament(TOURNAMENT_ID_PROCTORIAOPEN, TOWN_ID_PROCTORIA, "Proctorian Open", 
+                "The easiest tournament in Proctoria", TrophyByID(TOURNAMENT_ID_PROCTORIAOPEN), 10, 20, 
+                    PopulateListOfGladiators(3, "Praxos|Quintos|Smirnoff", "A hulking menace.|A nomadic tribesman.|A towering figure.", 
+                        "0|100|100", "111", "111")));
+            WorldTournaments.Add(new Tournament(TOURNAMENT_ID_ATTELAIRROOKIES, TOWN_ID_ATTELAIR, "Attelair Rookies", "The entry level tournament in Attelair",
+                TrophyByID(TOURNAMENT_ID_ATTELAIRROOKIES), 50, 100, PopulateListOfGladiators(3, 
+                    "Ervairn|Tregarn|Eridor", "A murderous looking brute.|Tall and slender.|Covered in sinewy muscle.", "100|300|300", "222", "222")));
+            WorldTournaments.Add(new Tournament(TOURNAMENT_ID_CTHAKMIJASPIRANTS, TOWN_ID_CTHAKMIJ, 
+                "Cthak Mij Aspirants", "The tournament to prove your mettle in Cthak Mij", 
+                    TrophyByID(TOURNAMENT_ID_CTHAKMIJASPIRANTS), 50, 100, PopulateListOfGladiators(5, "Warn|Twarn|Thward|Quarn|Pwarn", 
+                        "one|two|three|four|five", "0|0|0|0|0", "11111", "11111")));
+            WorldTournaments.Add(new Tournament(TOURNAMENT_ID_ELLANERAANSAPLINGS, TOWN_ID_ELLANERAAN, "Ellaneraan Sapling", "The first tournament available amongst the trees.", TrophyByID(TOURNAMENT_ID_ELLANERAANSAPLINGS), 100, 200, PopulateListOfGladiators(4, "Dryada|Rhodendra|Rosathorn|Daffelia", "one|two|three|four", "100|300|100|300", "1212", "2121")));
+            
         }
         public static void PopulateArena()
         {
-            Arenas.Add(new Arena(ARENA_ID_PROCTORIA, "Steel Arena", "The arena is littered with spike traps.", TournamentByID(TOURNAMENT_ID_PROCTORIA1), BattlefieldByID(BATTLEFIELD_ID_PROCTORIA)));
+            Arenas.Add(new Arena(ARENA_ID_PROCTORIA, "The Steel Arena", "The arena is littered with metal spikes.", SelectTownsTournaments(TOWN_ID_PROCTORIA), BattlefieldByID(BATTLEFIELD_ID_PROCTORIA)));
+            Arenas.Add(new Arena(ARENA_ID_ATTELAIR, "The Floating Arena", "The arena is position high above the city and made of transparent glass so all can see the action.", SelectTownsTournaments(TOWN_ID_ATTELAIR), BattlefieldByID(BATTLEFIELD_ID_ATTELAIR)));
+            Arenas.Add(new Arena(ARENA_ID_CTHAKMIJ, "The Dust Arena", "Set in a pit in the desert, the wind whips the sand up into the eyes of the unwary.", SelectTownsTournaments(TOWN_ID_CTHAKMIJ), BattlefieldByID(BATTLEFIELD_ID_CTHAKMIJ)));
+            Arenas.Add(new Arena(ARENA_ID_ELLANERAAN, "The Verdant Arena", "The arena is found high in the trees amongst the leaves.", SelectTownsTournaments(TOWN_ID_ELLANERAAN), BattlefieldByID(BATTLEFIELD_ID_ELLANERAAN)));
+
         }
         public static void PopulateGladiatorShop()
         {
@@ -121,7 +144,31 @@ namespace Engine
         {
             ItemShops.Add(new ItemShop(ITEM_SHOP_ID_PROCTORIA, "Market", "Protus", "A large market stall filled with weapons and armour.", ShopItems));
         }
+        public static List<Gladiator> PopulateListOfGladiators(int numberOfGladiators, string names, string descriptions, string exp, string weapons, string armours)
+        {
+            List<Gladiator> list = new List<Gladiator>();
+            string[] Names = names.Split('|');
+            string[] Descriptions = descriptions.Split('|');
+            string[] stringEXPs = exp.Split('|');
+            List<int> EXPs = new List<int>();
+            foreach(string exps in stringEXPs)
+            {
+                EXPs.Add(Int32.Parse(exps));
+            }
+            char[] WeaponIDs = weapons.ToCharArray();
+            char[] ArmourIDS = armours.ToCharArray();
 
+            for(int i = 0; i < numberOfGladiators; i++)
+            {
+                Gladiator tempGlad = new Gladiator(Names[i], Descriptions[i]);
+                tempGlad.EXP = EXPs[i];
+                tempGlad.WeaponEquipped = WeaponByID(WeaponIDs[i]);
+                tempGlad.ArmourEquipped = ArmourByID(ArmourIDS[i]);
+                list.Add(tempGlad);
+            }
+            return list;
+
+        }
         public static void PopulateTowns()
         {
             Towns.Add(new Town(TOWN_ID_PROCTORIA, "Proctoria",
@@ -130,15 +177,15 @@ namespace Engine
                         ItemShopByID(ITEM_SHOP_ID_PROCTORIA)));
             Towns.Add(new Town(TOWN_ID_ATTELAIR, "Attelair",
                 "The City of Glass. Spires of every colour imagineable reach for the sky.",
-                    ArenaByID(ARENA_ID_PROCTORIA), GladiatorShopByID(GLADIATOR_SHOP_ID_PROCTORIA),
+                    ArenaByID(ARENA_ID_ATTELAIR), GladiatorShopByID(GLADIATOR_SHOP_ID_PROCTORIA),
                         ItemShopByID(ITEM_SHOP_ID_PROCTORIA)));
             Towns.Add(new Town(TOWN_ID_CTHAKMIJ, "Cthak Mij",
                 "The City of the Desert. Squat buildings of baked mud line the dusty roads in this town.",
-                    ArenaByID(ARENA_ID_PROCTORIA), GladiatorShopByID(GLADIATOR_SHOP_ID_PROCTORIA),
+                    ArenaByID(ARENA_ID_CTHAKMIJ), GladiatorShopByID(GLADIATOR_SHOP_ID_PROCTORIA),
                         ItemShopByID(ITEM_SHOP_ID_PROCTORIA)));
             Towns.Add(new Town(TOWN_ID_ELLANERAAN, "Ellaneraan",
                 "The City of Trees. This town is build on decks radiating out from the giant trees of the forest.",
-                    ArenaByID(ARENA_ID_PROCTORIA), GladiatorShopByID(GLADIATOR_SHOP_ID_PROCTORIA),
+                    ArenaByID(ARENA_ID_ELLANERAAN), GladiatorShopByID(GLADIATOR_SHOP_ID_PROCTORIA),
                         ItemShopByID(ITEM_SHOP_ID_PROCTORIA)));
         }
 
@@ -226,7 +273,7 @@ namespace Engine
             }
             return null;
         }
-        public static Tournament TournamentByID(int id)
+        public static Tournament TournamentByID(int id, List<Tournament> Tournaments)
         {
             foreach(Tournament tourney in Tournaments)
             {
@@ -236,6 +283,18 @@ namespace Engine
                 }
             }
             return null;
+        }
+        public static List<Tournament> SelectTownsTournaments(int townID)
+        {
+            List<Tournament> townsTournaments = new List<Tournament>();
+            foreach(Tournament tourney in WorldTournaments)
+            {
+                if(tourney.TownID == townID)
+                {
+                    townsTournaments.Add(tourney);
+                }
+            }
+            return townsTournaments;
         }
         public static BattleField BattlefieldByID(int id)
         {

@@ -37,13 +37,13 @@ namespace Engine
         public BattleTile CurrentTile;
         public int attackRange;
         
-        public Gladiator(string name, string description)
+        public Gladiator(string name, string description, int exp = 0)
         {
             Name = name;
             Nickname = null;
             InPlayersTeam = false;
             Description = description;
-            EXP = 0;
+            EXP = exp;
             BaseDamage = 3;
             BaseHP = 10;           
             WeaponEquipped = World.WeaponByID(World.WEAPON_ID_FISTS);
@@ -54,6 +54,8 @@ namespace Engine
             movementRange = 3;
             attackRange = 1;
         }
+
+        
 
         public int ExpAdd
         {

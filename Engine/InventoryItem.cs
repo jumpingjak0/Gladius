@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Engine
 {
-    class InventoryItem
+    public class InventoryItem
     {
         public int Quantity;
         public Item Item;

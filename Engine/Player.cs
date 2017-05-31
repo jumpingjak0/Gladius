@@ -11,7 +11,7 @@ namespace Engine
         static public string Name;
         static public int Gold;
         static public List<Gladiator> MySchool;
-        static public List<Item> Inventory;
+        static public List<InventoryItem> Inventory;
         static public List<Trophy> Trophies;
         static public Town CurrentTown;
 
@@ -23,6 +23,8 @@ namespace Engine
             Trophies = null;
             CurrentTown = null;
             MySchool = new List<Gladiator>();
+            Inventory = new List<InventoryItem>();
+            Trophies = new List<Trophy>();
         }
 
        

@@ -7,15 +7,16 @@ namespace Engine
 {
     public class Tournament
     {
-        public int ID;
-        public string Name;
+        public int ID { get; set; }
+        public int TownID;
+        public string Name { get; set; }
         public string Description;
         public Trophy Trophy;
         public int RewardGold;
         public int RewardExp;
         public List<Gladiator> EnemyTeam;
 
-        public Tournament(int id, string name, string description, Trophy trophy, int rewardGold, int rewardExp, List<Gladiator> enemyTeam)
+        public Tournament(int id, int townID, string name, string description, Trophy trophy, int rewardGold, int rewardExp, List<Gladiator> enemyTeam)
         {
             ID = id;
             Name = name;
@@ -24,6 +25,7 @@ namespace Engine
             RewardGold = rewardGold;
             RewardExp = rewardExp;
             EnemyTeam = enemyTeam;
+            TownID = townID;
         }
     }
 }

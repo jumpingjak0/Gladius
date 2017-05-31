@@ -10,15 +10,15 @@ namespace Engine
         public int ID;
         public string Name;
         public string Description;
-        public Tournament Tourney1;      
+        public List<Tournament> Tournaments;      
         public BattleField BattleField;
 
-        public Arena(int id, string name, string description, Tournament tourney1, BattleField battlefield )
+        public Arena(int id, string name, string description, List<Tournament> tournaments, BattleField battlefield )
         {
             ID = id;
             Name = name;
             Description = description;
-            Tourney1 = tourney1;
+            Tournaments = tournaments;
             BattleField = battlefield;
 
         }
