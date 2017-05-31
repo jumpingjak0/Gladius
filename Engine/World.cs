@@ -153,8 +153,8 @@ namespace Engine
             {
                 Gladiator tempGlad = new Gladiator(Names[i], Descriptions[i]);
                 tempGlad.EXP = EXPs[i];
-                tempGlad.WeaponEquipped = WeaponByID(WeaponIDs[i]);
-                tempGlad.ArmourEquipped = ArmourByID(ArmourIDS[i]);
+                tempGlad.WeaponEquipped = WeaponByID((int)Char.GetNumericValue(WeaponIDs[i]));
+                tempGlad.ArmourEquipped = ArmourByID((int)Char.GetNumericValue(ArmourIDS[i]));
                 list.Add(tempGlad);
             }
             return list;

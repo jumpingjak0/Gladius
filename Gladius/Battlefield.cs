@@ -19,10 +19,11 @@ namespace Gladius
         public static BattleTile SelectedTile;
 
         public BattlefieldForm(UI form1, List<Gladiator> myTeam, List<Gladiator> enemyTeam)
-        {
+        {          
             InitializeComponent();
             formUI = form1; 
-            lblTitle.Text = Player.CurrentTown.Name + " Arena";                      
+            lblTitle.Text = Player.CurrentTown.Name + " Arena";
+            btnEndBattle.Visible = false;
             MyTeam = myTeam;
             EnemyTeam = enemyTeam;
             Populate();
@@ -62,6 +63,7 @@ namespace Gladius
 
             
             BattleTile[,] arenafieldTemp = new BattleTile[width + 1, height + 1];
+            BattleTile.endBattle = btnEndBattle;
 
             foreach(BattleTile bt in arenaField)
             {
@@ -85,7 +87,8 @@ namespace Gladius
                     glad.CurrentTile = field[1, i];
                     glad.X = field[1, i].X;
                     glad.Y = field[1, i].Y;
-
+                    glad.potentialEXP = glad.EXP;
+                    glad.HasMoved = false;
                 }
             }
             i = 0;
@@ -96,9 +99,11 @@ namespace Gladius
                     i++;
                     field[(field.GetLength(0) - 1), i].gladiator = glad;
                     glad.CurrentHP = glad.MaxHP;
+                    glad.State = State.alive;
                     glad.CurrentTile = field[(field.GetLength(0) - 1), i];
                     glad.Y = field[(field.GetLength(0) - 1), i].Y;
                     glad.X = field[(field.GetLength(0) - 1), i].X;
+                    glad.HasMoved = false;
                     
                 }
             }
@@ -120,6 +125,9 @@ namespace Gladius
             rtbBattle.ScrollToCaret();
         }
 
-        
+        private void btnEndBattle_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

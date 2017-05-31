@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Engine
 {
@@ -18,7 +19,7 @@ namespace Engine
 
         public string PurchaseGladiator (Gladiator boughtGladiator)
         {
-            if (boughtGladiator.Value < Player.Gold)
+            if (boughtGladiator.Value <= Player.Gold)
             {
                 boughtGladiator.InPlayersTeam = true;
                 Player.MySchool.Add(boughtGladiator);

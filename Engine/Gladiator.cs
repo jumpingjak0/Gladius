@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Engine
 {
@@ -36,7 +37,9 @@ namespace Engine
         public int Y;
         public BattleTile CurrentTile;
         public int attackRange;
-        
+        public int potentialEXP;
+
+
         public Gladiator(string name, string description, int exp = 0)
         {
             Name = name;
@@ -57,14 +60,7 @@ namespace Engine
 
         
 
-        public int ExpAdd
-        {
-            set
-            {
-                this.EXP += value;
-                LevelUpGladiator();
-            }
-        }
+      
 
         public override string ToString()
         {
@@ -108,6 +104,34 @@ namespace Engine
             }
             StatGladiatorUpToLevel();
         }
+        public void LevelUpGladiator(RichTextBox rtb)
+        {
+            int previousLevel = Level;
+            Level = 1;
+            int exp = EXP;
+            for (int i = 1; exp >= 0; i++)
+            {
+                int expForNextLevel = i * 100;
+                if (exp - expForNextLevel > 0)
+                {
+                    Level++;
+                    exp -= expForNextLevel;
+
+                }
+                else
+                {
+                    ExpToNextLevel = -(exp - expForNextLevel);
+                    break;
+                }
+            }
+            StatGladiatorUpToLevel();
+
+            if (previousLevel < Level)
+            {
+                rtb.Text += this.Name + " has leveled up to level " + this.Level + Environment.NewLine;
+            }
+        }
+
 
         public void StatGladiatorUpToLevel()
         {

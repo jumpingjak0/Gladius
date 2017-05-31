@@ -50,8 +50,10 @@
     <Compile Include="InventoryItem.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemShop.cs" />
+    <Compile Include="LoadGame.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="RandomNumberGenerator.cs" />
+    <Compile Include="SaveGame.cs" />
     <Compile Include="SaveLoadMethods.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="Tournament.cs" />

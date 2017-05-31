@@ -79,6 +79,7 @@ namespace Gladius
         private void btnEnterTournament_Click(object sender, EventArgs e)
         {
             Tournament currentTournament = (Tournament)cbTournament.SelectedItem;
+            Player.CurrentTournament = currentTournament;
             BattlefieldForm bf = new BattlefieldForm(this, Player.MySchool, currentTournament.EnemyTeam);
             bf.Show();
             panelMenu.Visible = false;
@@ -158,6 +159,7 @@ namespace Gladius
                         try
                         {
                             rtbUI.Text += Environment.NewLine + (World.GladiatorShopByID(World.GLADIATOR_SHOP_ID_PROCTORIA).PurchaseGladiator(Gladiator.PickGladitorFromDGV(MyGladList, (string)dgvUI.CurrentCell.Value))) + Environment.NewLine;
+                            labelGold.Text = Player.Gold.ToString();
                             dgvUI.Rows.Clear();
                             foreach (Gladiator gladiator in World.TempGladList)
                             {

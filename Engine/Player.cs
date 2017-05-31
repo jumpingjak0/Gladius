@@ -14,11 +14,12 @@ namespace Engine
         static public List<InventoryItem> Inventory;
         static public List<Trophy> Trophies;
         static public Town CurrentTown;
+        static public Tournament CurrentTournament;
 
         static Player()
         {
             Name = "Jack";
-            Gold = 150;
+            Gold = 300;
             Inventory = null;
             Trophies = null;
             CurrentTown = null;

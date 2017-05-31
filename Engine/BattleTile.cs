@@ -32,6 +32,7 @@ namespace Engine
         public static List<Gladiator> MyTeam;
         public static List<Gladiator> EnemyTeam;
         public static BattleTile[,] ArenaField;
+        public static Button endBattle;
         
 
 
@@ -155,19 +156,31 @@ namespace Engine
                 }
                 rtbBattleMonitor.Text += Environment.NewLine;
             }
+            if(CheckTeamAllDead(EnemyTeam))
+            {
+                BattleWon();
+            }
+            if(CheckTeamAllDead(MyTeam))
+            {
+                BattleLost();
+            }
             if(CheckAllTeamMoved(MyTeam))
             {
                 foreach(Gladiator glad in EnemyTeam)
                 {
+                    if(glad.State == State.alive)
                     SelectedTile = glad.CurrentTile;
-                    AIGladiatorTurn(FindNearestGladiatorOnPlayerTeam());
+                    try
+                    {
+                        AIGladiatorTurn(FindNearestGladiatorOnPlayerTeam());
+                    }
+                    catch
+                    {
+                        return;
+                    }
                 }
                 SelectedTile = null;
             }
-                
-            
-
-
 
         }
 
@@ -231,41 +244,10 @@ namespace Engine
             if (defender.gladiator.CurrentHP <= 0)
             {
                 rtbBattleMonitor.Text +=  defender.gladiator.Name + " has fainted." + Environment.NewLine + Environment.NewLine;
+                attacker.gladiator.potentialEXP += defender.gladiator.RewardEXP;
                 rtbBattleMonitor.Refresh();
                 defender.gladiator.State = State.dead;
                 SelectedTile = null;
-                string gladToDelete = "";
-                if(defender.gladiator.InPlayersTeam)
-                {
-                    foreach (Gladiator glad in MyTeam)
-                    {
-                        if (glad.Name == defender.gladiator.Name)
-                        {
-                            gladToDelete = glad.Name;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (Gladiator glad in EnemyTeam)
-                    {
-                        if (glad.Name == defender.gladiator.Name)
-                        {
-                            gladToDelete = glad.Name;
-                            break;
-                        }
-                    }
-                }
-
-                if(defender.gladiator.InPlayersTeam)
-                {
-                    MyTeam.Remove(Gladiator.GladiatorByName(gladToDelete, MyTeam));
-                }
-                else
-                {
-                    EnemyTeam.Remove(Gladiator.GladiatorByName(gladToDelete, EnemyTeam));
-                }
                 defender.gladiator = null;
                 defender.ShowTileIsOccupied();
                 
@@ -302,6 +284,18 @@ namespace Engine
             return false;
 
         }
+        public bool CheckTeamAllDead (List<Gladiator> inTeam)
+        {
+            bool teamAllDead = true;
+            foreach(Gladiator glad in inTeam)
+            {
+                if(glad.State == State.alive)
+                {
+                    teamAllDead = false;
+                }
+            }
+            return teamAllDead;
+        }
         public static int GladiatorDamageCalculator(Gladiator attacker, Gladiator defender)
         {
             int weaponDamage = RandomNumberGenerator.RandomNumber(attacker.WeaponEquipped.MinDamage, attacker.WeaponEquipped.MaxDamage);
@@ -311,6 +305,38 @@ namespace Engine
             return damageTaken;
         }
 
+        public void BattleWon()
+        {
+            rtbBattleMonitor.Text += "You've won the tournament!" + Environment.NewLine;
+            rtbBattleMonitor.Text += "You win " + Player.CurrentTournament.RewardGold + " gold." + Environment.NewLine;
+            foreach(Gladiator glad in MyTeam)
+            {
+                if(glad.State == State.alive)
+                {
+                    int expDifference = glad.potentialEXP - glad.EXP;
+                    glad.EXP = glad.potentialEXP;
+                    glad.EXP += Player.CurrentTournament.RewardExp;
+                    rtbBattleMonitor.Text += glad.Name + " has been rewarded " + (Player.CurrentTournament.RewardExp + expDifference)  + " EXP."+ Environment.NewLine;
+                    glad.LevelUpGladiator(rtbBattleMonitor);
+
+                }
+            }
+            
+            if(!Player.CurrentTournament.Trophy.PlayerHasTrophy)
+            {
+                Player.Trophies.Add(Player.CurrentTournament.Trophy);
+                Player.CurrentTournament.Trophy.PlayerHasTrophy = true;
+                rtbBattleMonitor.Text += "You have been awarded the " + Player.CurrentTournament.Trophy.Name + Environment.NewLine;
+            }
+            endBattle.Visible = true;
+        }
+
+        public void BattleLost()
+        {
+            rtbBattleMonitor.Text += "You've lost!";
+            endBattle.Visible = true;
+        }
+            
         
         public bool TileIsInMovementRange(BattleTile target)
         {
@@ -348,19 +374,32 @@ namespace Engine
             double dist = 0;
             foreach (Gladiator glad in BattleTile.MyTeam)
             {
-                dist = (int)Math.Sqrt(Math.Pow(glad.X - SelectedTile.X, 2) + Math.Pow(glad.Y - SelectedTile.Y, 2));
-                if (dist < lowestDist)
+                try
                 {
-                    lowestDist = dist;
-                    nearestTileWithPlayerGladiator = glad.CurrentTile;
+                    if (glad.State == State.alive)
+                    {
+                        dist = (int)Math.Sqrt(Math.Pow(glad.X - SelectedTile.X, 2) + Math.Pow(glad.Y - SelectedTile.Y, 2));
+                        if (dist < lowestDist)
+                        {
+                            lowestDist = dist;
+                            nearestTileWithPlayerGladiator = glad.CurrentTile;
+                        }
+                    }
                 }
-
+                catch
+                {
+                    return null;
+                }
             }
             return nearestTileWithPlayerGladiator;
         }
 
         public void AIGladiatorTurn(BattleTile NearestTile)
         {
+            if(NearestTile == null)
+            {
+                return;
+            }
             if (SelectedTile.TileIsInAttackRange(NearestTile))
             {
                 SelectedTile.AttackGladiator(SelectedTile, NearestTile, rtbBattleMonitor);

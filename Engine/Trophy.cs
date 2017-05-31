@@ -10,12 +10,14 @@ namespace Engine
         public int ID;
         public string Name;
         public string Description;
+        public bool PlayerHasTrophy;
 
         public Trophy(int id, string name, string description)
         {
             ID = id;
             Name = name;
             Description = description;
+            PlayerHasTrophy = false;
         }
     }
 }
