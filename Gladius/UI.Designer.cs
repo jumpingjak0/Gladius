@@ -51,6 +51,7 @@
             this.cbTournament = new System.Windows.Forms.ComboBox();
             this.panelTournamentSelector = new System.Windows.Forms.Panel();
             this.btnEnterTournament = new System.Windows.Forms.Button();
+            this.btnMyTrophies = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.panelTravel.SuspendLayout();
             this.panelList.SuspendLayout();
@@ -66,9 +67,11 @@
             this.rtbUI.Size = new System.Drawing.Size(549, 213);
             this.rtbUI.TabIndex = 0;
             this.rtbUI.Text = "";
+            this.rtbUI.TextChanged += new System.EventHandler(this.rtbUI_TextChanged);
             // 
             // panelMenu
             // 
+            this.panelMenu.Controls.Add(this.btnMyTrophies);
             this.panelMenu.Controls.Add(this.buttonInventory);
             this.panelMenu.Controls.Add(this.btnSave);
             this.panelMenu.Controls.Add(this.btnTravel);
@@ -76,9 +79,9 @@
             this.panelMenu.Controls.Add(this.btnMyGlad);
             this.panelMenu.Controls.Add(this.btnGladShop);
             this.panelMenu.Controls.Add(this.btnShop);
-            this.panelMenu.Location = new System.Drawing.Point(12, 236);
+            this.panelMenu.Location = new System.Drawing.Point(12, 229);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(116, 223);
+            this.panelMenu.Size = new System.Drawing.Size(116, 232);
             this.panelMenu.TabIndex = 1;
             // 
             // buttonInventory
@@ -264,10 +267,11 @@
             // cbTournament
             // 
             this.cbTournament.FormattingEnabled = true;
-            this.cbTournament.Location = new System.Drawing.Point(-1, 3);
+            this.cbTournament.Location = new System.Drawing.Point(2, 6);
             this.cbTournament.Name = "cbTournament";
             this.cbTournament.Size = new System.Drawing.Size(121, 21);
             this.cbTournament.TabIndex = 4;
+            this.cbTournament.SelectedIndexChanged += new System.EventHandler(this.cbTournament_SelectedIndexChanged);
             // 
             // panelTournamentSelector
             // 
@@ -275,7 +279,7 @@
             this.panelTournamentSelector.Controls.Add(this.cbTournament);
             this.panelTournamentSelector.Location = new System.Drawing.Point(456, 257);
             this.panelTournamentSelector.Name = "panelTournamentSelector";
-            this.panelTournamentSelector.Size = new System.Drawing.Size(120, 161);
+            this.panelTournamentSelector.Size = new System.Drawing.Size(126, 161);
             this.panelTournamentSelector.TabIndex = 5;
             // 
             // btnEnterTournament
@@ -287,6 +291,15 @@
             this.btnEnterTournament.Text = "Enter Tournament";
             this.btnEnterTournament.UseVisualStyleBackColor = true;
             this.btnEnterTournament.Click += new System.EventHandler(this.btnEnterTournament_Click);
+            // 
+            // btnMyTrophies
+            // 
+            this.btnMyTrophies.Location = new System.Drawing.Point(3, 206);
+            this.btnMyTrophies.Name = "btnMyTrophies";
+            this.btnMyTrophies.Size = new System.Drawing.Size(109, 23);
+            this.btnMyTrophies.TabIndex = 6;
+            this.btnMyTrophies.Text = "Trophies";
+            this.btnMyTrophies.UseVisualStyleBackColor = true;
             // 
             // UI
             // 
@@ -335,5 +348,6 @@
         private System.Windows.Forms.ComboBox cbTournament;
         private System.Windows.Forms.Panel panelTournamentSelector;
         private System.Windows.Forms.Button btnEnterTournament;
+        private System.Windows.Forms.Button btnMyTrophies;
     }
 }

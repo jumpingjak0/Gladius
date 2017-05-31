@@ -18,7 +18,7 @@ namespace Engine
         static Player()
         {
             Name = "Jack";
-            Gold = 10;
+            Gold = 150;
             Inventory = null;
             Trophies = null;
             CurrentTown = null;

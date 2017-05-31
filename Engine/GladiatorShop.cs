@@ -16,21 +16,32 @@ namespace Engine
             Stock = stock;
         }
 
-        public void PurchaseGladiator (Gladiator boughtGladiator)
+        public string PurchaseGladiator (Gladiator boughtGladiator)
         {
-            boughtGladiator.InPlayersTeam = true;
-            Player.MySchool.Add(boughtGladiator);
-            Gladiator gladToRemove = null;
-            foreach(Gladiator glad in Stock)
+            if (boughtGladiator.Value < Player.Gold)
             {
-                if(boughtGladiator.Name == glad.Name)
+                boughtGladiator.InPlayersTeam = true;
+                Player.MySchool.Add(boughtGladiator);
+                Gladiator gladToRemove = null;
+                foreach (Gladiator glad in Stock)
                 {
-                    gladToRemove = glad;
-                    break;
+                    if (boughtGladiator.Name == glad.Name)
+                    {
+                        gladToRemove = glad;
+                        break;
+                    }
                 }
+                Stock.Remove(gladToRemove);
+                Player.Gold -= boughtGladiator.Value;
+                string output = "You have bought " + gladToRemove.Name + " for " + gladToRemove.Value + "gold.";
+                return output;
+            }
+            else
+            {
+                return "You can't afford this gladiator.";
             }
             
-            Stock.Remove(gladToRemove);
+            
                
         }
     }

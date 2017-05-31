@@ -19,15 +19,6 @@ namespace Engine
         public static readonly List<Tournament> WorldTournaments = new List<Tournament>();
 
         //temp bit
-        public static readonly List<Gladiator> GladiatorList = new List<Gladiator>(); 
-        public static void PopulateGladiatorList()
-        {
-            GladiatorList.Add(new Gladiator("Praxos", "A hulking menace."));
-            
-            GladiatorList.Add(new Gladiator("Nervanos", "A graceful dancer of death."));
-            GladiatorList.Add(new Gladiator("Testudos", "A man of pure muscle."));
-
-        }
         public static readonly List<Gladiator> TempGladList = new List<Gladiator>();
         public static void PopulateTempGladList()
         { 
@@ -195,7 +186,6 @@ namespace Engine
             PopulateArmour();
             PopulateBattleFields();
             PopulateTrophy();
-            PopulateGladiatorList(); //temp
             PopulateTempGladList(); //temp
             PopulateTournaments();
             PopulateArena();

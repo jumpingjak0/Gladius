@@ -19,10 +19,12 @@ namespace Gladius
             panelTravel.Visible = false;
             panelList.Visible = false;
             panelTournamentSelector.Visible = false;
-            World.Create();           
+            World.Create();
             Player.CurrentTown = World.TownByID(World.TOWN_ID_PROCTORIA);
-            rtbUI.Text = Player.CurrentTown.UpdateTownDescription();       
+            rtbUI.Text = Player.CurrentTown.UpdateTownDescription();
         }
+
+        public string shopType = "";
 
         private void btnTravel_Click(object sender, EventArgs e)
         {            
@@ -62,12 +64,16 @@ namespace Gladius
 
         private void btnArena_Click(object sender, EventArgs e)
         {
-            panelList.Visible = false;
-            panelTravel.Visible = false;
-            panelTournamentSelector.Visible = true;
-            cbTournament.DataSource = Player.CurrentTown.Arena.Tournaments;
-            cbTournament.DisplayMember = "Name";
-            cbTournament.ValueMember = "ID";
+           
+           
+                panelList.Visible = false;
+                panelTravel.Visible = false;
+                panelTournamentSelector.Visible = true;
+                cbTournament.DataSource = Player.CurrentTown.Arena.Tournaments;
+                cbTournament.DisplayMember = "Name";
+                cbTournament.ValueMember = "ID";
+                cbTournament.SelectedIndex = 0;
+            
         }
 
         private void btnEnterTournament_Click(object sender, EventArgs e)
@@ -118,9 +124,10 @@ namespace Gladius
 
         private void btnGladShop_Click(object sender, EventArgs e)
         {
+            shopType = "Gladiator";
             GladiatorShop currentShop = World.GladiatorShopByID(Player.CurrentTown.GladiatorShop.ID);
-            rtbUI.Text += Environment.NewLine + Environment.NewLine + currentShop.Name + Environment.NewLine
-                + currentShop.Description;
+            rtbUI.Text += Environment.NewLine + currentShop.Name + Environment.NewLine
+                + currentShop.Description + Environment.NewLine;
             MyGladList = false;
             panelList.Visible = true;
             panelTravel.Visible = false;
@@ -144,20 +151,31 @@ namespace Gladius
 
         private void buttonPuchase_Click(object sender, EventArgs e)
         {
-
-            try
+            switch (shopType)
             {
-                World.GladiatorShopByID(World.GLADIATOR_SHOP_ID_PROCTORIA).PurchaseGladiator(Gladiator.PickGladitorFromDGV(MyGladList, (string)dgvUI.CurrentCell.Value));
-                dgvUI.Rows.Clear();
-                foreach (Gladiator gladiator in World.TempGladList)
-                {
-                    dgvUI.Rows.Add(gladiator.Name, gladiator.Value);
-                }
+                case "Gladiator":
+                    {
+                        try
+                        {
+                            rtbUI.Text += Environment.NewLine + (World.GladiatorShopByID(World.GLADIATOR_SHOP_ID_PROCTORIA).PurchaseGladiator(Gladiator.PickGladitorFromDGV(MyGladList, (string)dgvUI.CurrentCell.Value))) + Environment.NewLine;
+                            dgvUI.Rows.Clear();
+                            foreach (Gladiator gladiator in World.TempGladList)
+                            {
+                                dgvUI.Rows.Add(gladiator.Name, gladiator.Value);
+                            }
+                        }
+                        catch
+                        {
+                            return;
+                        }
+                        break;
+                    }
+                case "Item":
+                    {
+                        break;
+                    }
             }
-            catch
-            {
-                return;
-            }
+            
         }
 
         private void buttonInventory_Click(object sender, EventArgs e)
@@ -189,6 +207,7 @@ namespace Gladius
 
         private void btnShop_Click(object sender, EventArgs e)
         {
+            shopType = "Item";
             dgvUI.Rows.Clear();
             ItemShop currentShop = World.ItemShopByID(Player.CurrentTown.ItemShop.ID);
             dgvUI.Visible = true;
@@ -203,8 +222,8 @@ namespace Gladius
             dgvUI.ColumnCount = 2;
             dgvUI.Columns[0].Name = "Item";
             dgvUI.Columns[1].Name = "Price";
-            rtbUI.Text += Environment.NewLine + Environment.NewLine + currentShop.Name + Environment.NewLine
-                + currentShop.Description;
+            rtbUI.Text += Environment.NewLine + currentShop.Name + Environment.NewLine
+                + currentShop.Description + Environment.NewLine;
 
             foreach (Item item in currentShop.Stock)
             {
@@ -216,6 +235,16 @@ namespace Gladius
 
         }
 
-       
+        private void cbTournament_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Tournament selection = (Tournament)cbTournament.SelectedItem;
+            rtbUI.Text += Environment.NewLine + Environment.NewLine + selection.Name + Environment.NewLine + selection.Description;
+        }
+
+        private void rtbUI_TextChanged(object sender, EventArgs e)
+        {
+            rtbUI.SelectionStart = rtbUI.Text.Length;
+            rtbUI.ScrollToCaret();
+        }
     }
 }
