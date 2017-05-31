@@ -52,7 +52,7 @@ namespace Engine
             WeaponEquipped = World.WeaponByID(World.WEAPON_ID_FISTS);
             ArmourEquipped = World.ArmourByID(World.ARMOUR_ID_RAGS);
             LevelUpGladiator();
-            RewardEXP = 100 * (Level / 2);
+            RewardEXP = 30 * Level;
             Value = 100 * Level;
             movementRange = 3;
             attackRange = 1;

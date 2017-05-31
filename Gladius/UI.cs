@@ -94,9 +94,12 @@ namespace Gladius
 
         private void btnMyGlad_Click(object sender, EventArgs e)
         {
+            btnViewGladiator.Visible = true;
+
             MyGladList = true;
             panelList.Visible = true;
             panelTravel.Visible = false;
+            panelTournamentSelector.Visible = false;
             buttonPurchase.Visible = false;
             labelGold.Visible = false;
             dgvUI.RowHeadersVisible = false;
@@ -125,6 +128,9 @@ namespace Gladius
 
         private void btnGladShop_Click(object sender, EventArgs e)
         {
+            labelGold.Visible = true;
+
+            btnViewGladiator.Visible = true;
             shopType = "Gladiator";
             GladiatorShop currentShop = World.GladiatorShopByID(Player.CurrentTown.GladiatorShop.ID);
             rtbUI.Text += Environment.NewLine + currentShop.Name + Environment.NewLine
@@ -209,6 +215,8 @@ namespace Gladius
 
         private void btnShop_Click(object sender, EventArgs e)
         {
+            labelGold.Visible = true ;
+
             shopType = "Item";
             dgvUI.Rows.Clear();
             ItemShop currentShop = World.ItemShopByID(Player.CurrentTown.ItemShop.ID);
@@ -247,6 +255,34 @@ namespace Gladius
         {
             rtbUI.SelectionStart = rtbUI.Text.Length;
             rtbUI.ScrollToCaret();
+        }
+
+        private void btnMyTrophies_Click(object sender, EventArgs e)
+        {
+            btnViewGladiator.Visible = false;
+            panelTournamentSelector.Visible = false;
+            panelTravel.Visible = false;
+            panelList.Visible = true;
+            buttonPurchase.Visible = false;
+            labelGold.Visible = false;
+            
+            dgvUI.ColumnHeadersVisible = false;
+            dgvUI.ColumnCount = 2;
+            dgvUI.Columns[0].Name = "Trophy";
+            dgvUI.Columns[1].Name = "Description";
+            dgvUI.Rows.Clear();
+            foreach(Trophy trophy in Player.Trophies)
+            {
+                dgvUI.Rows.Add(trophy.Name, trophy.Description);
+            }
+            dgvUI.Columns[1].Width = 200;
+            dgvUI.Width = 250;
+            dgvUI.Columns[0].Width = 45;
+        }
+
+        private void dgvUI_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
         }
     }
 }

@@ -30,6 +30,7 @@
         {
             this.rtbUI = new System.Windows.Forms.RichTextBox();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.btnMyTrophies = new System.Windows.Forms.Button();
             this.buttonInventory = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnTravel = new System.Windows.Forms.Button();
@@ -51,7 +52,6 @@
             this.cbTournament = new System.Windows.Forms.ComboBox();
             this.panelTournamentSelector = new System.Windows.Forms.Panel();
             this.btnEnterTournament = new System.Windows.Forms.Button();
-            this.btnMyTrophies = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.panelTravel.SuspendLayout();
             this.panelList.SuspendLayout();
@@ -83,6 +83,16 @@
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(116, 232);
             this.panelMenu.TabIndex = 1;
+            // 
+            // btnMyTrophies
+            // 
+            this.btnMyTrophies.Location = new System.Drawing.Point(3, 206);
+            this.btnMyTrophies.Name = "btnMyTrophies";
+            this.btnMyTrophies.Size = new System.Drawing.Size(109, 23);
+            this.btnMyTrophies.TabIndex = 6;
+            this.btnMyTrophies.Text = "Trophies";
+            this.btnMyTrophies.UseVisualStyleBackColor = true;
+            this.btnMyTrophies.Click += new System.EventHandler(this.btnMyTrophies_Click);
             // 
             // buttonInventory
             // 
@@ -263,6 +273,7 @@
             this.dgvUI.ReadOnly = true;
             this.dgvUI.Size = new System.Drawing.Size(100, 200);
             this.dgvUI.TabIndex = 0;
+            this.dgvUI.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUI_CellClick);
             // 
             // cbTournament
             // 
@@ -291,15 +302,6 @@
             this.btnEnterTournament.Text = "Enter Tournament";
             this.btnEnterTournament.UseVisualStyleBackColor = true;
             this.btnEnterTournament.Click += new System.EventHandler(this.btnEnterTournament_Click);
-            // 
-            // btnMyTrophies
-            // 
-            this.btnMyTrophies.Location = new System.Drawing.Point(3, 206);
-            this.btnMyTrophies.Name = "btnMyTrophies";
-            this.btnMyTrophies.Size = new System.Drawing.Size(109, 23);
-            this.btnMyTrophies.TabIndex = 6;
-            this.btnMyTrophies.Text = "Trophies";
-            this.btnMyTrophies.UseVisualStyleBackColor = true;
             // 
             // UI
             // 
