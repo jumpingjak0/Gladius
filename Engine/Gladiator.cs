@@ -139,7 +139,7 @@ namespace Engine
             MaxHP = BaseHP + Level * 2;
         }
 
-        public static Gladiator PickGladitorFromDGV(bool myGladList, string gladName)
+        public static Gladiator PickGladiatorFromDGV(bool myGladList, string gladName)
         {
             List<Gladiator> toUse = new List<Gladiator>();
             if (myGladList)

@@ -309,6 +309,7 @@ namespace Engine
         {
             rtbBattleMonitor.Text += "You've won the tournament!" + Environment.NewLine;
             rtbBattleMonitor.Text += "You win " + Player.CurrentTournament.RewardGold + " gold." + Environment.NewLine;
+            Player.Gold += Player.CurrentTournament.RewardGold;
             foreach(Gladiator glad in MyTeam)
             {
                 if(glad.State == State.alive)
@@ -326,7 +327,7 @@ namespace Engine
             {
                 Player.Trophies.Add(Player.CurrentTournament.Trophy);
                 Player.CurrentTournament.Trophy.PlayerHasTrophy = true;
-                rtbBattleMonitor.Text += "You have been awarded the " + Player.CurrentTournament.Trophy.Name + Environment.NewLine;
+                rtbBattleMonitor.Text += "You have been awarded the " + Player.CurrentTournament.Trophy.Name + " Trophy"+ Environment.NewLine;
             }
             endBattle.Visible = true;
         }

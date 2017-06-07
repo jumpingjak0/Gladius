@@ -229,15 +229,16 @@
             this.panelList.Controls.Add(this.buttonPurchase);
             this.panelList.Controls.Add(this.btnViewGladiator);
             this.panelList.Controls.Add(this.dgvUI);
-            this.panelList.Location = new System.Drawing.Point(153, 229);
+            this.panelList.Location = new System.Drawing.Point(150, 229);
             this.panelList.Name = "panelList";
-            this.panelList.Size = new System.Drawing.Size(297, 217);
+            this.panelList.Size = new System.Drawing.Size(408, 217);
             this.panelList.TabIndex = 3;
+            this.panelList.Visible = false;
             // 
             // labelGold
             // 
             this.labelGold.AutoSize = true;
-            this.labelGold.Location = new System.Drawing.Point(192, 78);
+            this.labelGold.Location = new System.Drawing.Point(325, 71);
             this.labelGold.Name = "labelGold";
             this.labelGold.Size = new System.Drawing.Size(33, 13);
             this.labelGold.TabIndex = 3;
@@ -245,7 +246,7 @@
             // 
             // buttonPurchase
             // 
-            this.buttonPurchase.Location = new System.Drawing.Point(192, 108);
+            this.buttonPurchase.Location = new System.Drawing.Point(298, 107);
             this.buttonPurchase.Name = "buttonPurchase";
             this.buttonPurchase.Size = new System.Drawing.Size(91, 23);
             this.buttonPurchase.TabIndex = 2;
@@ -255,7 +256,7 @@
             // 
             // btnViewGladiator
             // 
-            this.btnViewGladiator.Location = new System.Drawing.Point(192, 37);
+            this.btnViewGladiator.Location = new System.Drawing.Point(298, 32);
             this.btnViewGladiator.Name = "btnViewGladiator";
             this.btnViewGladiator.Size = new System.Drawing.Size(91, 23);
             this.btnViewGladiator.TabIndex = 1;
@@ -288,10 +289,11 @@
             // 
             this.panelTournamentSelector.Controls.Add(this.btnEnterTournament);
             this.panelTournamentSelector.Controls.Add(this.cbTournament);
-            this.panelTournamentSelector.Location = new System.Drawing.Point(456, 257);
+            this.panelTournamentSelector.Location = new System.Drawing.Point(456, 242);
             this.panelTournamentSelector.Name = "panelTournamentSelector";
             this.panelTournamentSelector.Size = new System.Drawing.Size(126, 161);
             this.panelTournamentSelector.TabIndex = 5;
+            this.panelTournamentSelector.Visible = false;
             // 
             // btnEnterTournament
             // 
@@ -308,13 +310,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 462);
-            this.Controls.Add(this.panelTournamentSelector);
             this.Controls.Add(this.panelList);
             this.Controls.Add(this.panelMenu);
             this.Controls.Add(this.rtbUI);
             this.Controls.Add(this.panelTravel);
+            this.Controls.Add(this.panelTournamentSelector);
             this.Name = "UI";
             this.Text = "Gladius";
+            this.Load += new System.EventHandler(this.UI_Load);
             this.panelMenu.ResumeLayout(false);
             this.panelTravel.ResumeLayout(false);
             this.panelList.ResumeLayout(false);

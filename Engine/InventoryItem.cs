@@ -13,7 +13,7 @@ namespace Engine
         public InventoryItem(Item item)
         {
             Item = item;
-            Quantity = 0;
+            Quantity = 1;
         }
     }
 }

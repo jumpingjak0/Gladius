@@ -47,14 +47,14 @@ namespace Engine
         public const int TOWN_ID_CTHAKMIJ = 3;
         public const int TOWN_ID_ELLANERAAN = 4;
 
-        public const int WEAPON_ID_FISTS = 1;
-        public const int WEAPON_ID_SHORT_SWORD = 2;
-        public const int WEAPON_ID_SPEAR = 3;
+        public const int WEAPON_ID_FISTS = 11;
+        public const int WEAPON_ID_SHORT_SWORD = 12;
+        public const int WEAPON_ID_SPEAR = 13;
 
-        public const int ARMOUR_ID_RAGS = 1;
-        public const int ARMOUR_ID_LEATHER = 2;
-        public const int ARMOUR_ID_CHAINMAIL = 3;
-        public const int ARMOUR_ID_PLATE = 4;
+        public const int ARMOUR_ID_RAGS = 21;
+        public const int ARMOUR_ID_LEATHER = 22;
+        public const int ARMOUR_ID_CHAINMAIL = 23;
+        public const int ARMOUR_ID_PLATE = 24;
 
         public const int TOURNAMENT_ID_PROCTORIAOPEN = 11;
         public const int TOURNAMENT_ID_ATTELAIRROOKIES = 21;
@@ -224,6 +224,28 @@ namespace Engine
                 if (id == armour.ID)
                 {
                     return armour;
+                }
+            }
+            return null;
+        }
+        public static bool PlayerHasThisItemInInventory(string name)
+        {
+            foreach(InventoryItem ii in Player.Inventory)
+            {
+                if (ii.Item.Name == name && ii.Quantity > 0)
+                {
+                    return true;
+                }              
+            }
+            return false;
+        }
+        public static InventoryItem InventoryItemByName(string name)
+        {
+            foreach(InventoryItem ii in Player.Inventory)
+            {
+                if(ii.Item.Name == name)
+                {
+                    return ii;
                 }
             }
             return null;

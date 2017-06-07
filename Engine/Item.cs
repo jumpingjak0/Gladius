@@ -19,5 +19,17 @@ namespace Engine
             Name = name;
             Description = description;
         }
+
+        static public Item PickItemFromDGV(string name)
+        {
+            foreach(Item item in World.ShopItems)
+            {
+                if(item.Name == name)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
     }
 }

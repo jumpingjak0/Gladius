@@ -10,9 +10,16 @@ using Engine;
 
 namespace Gladius
 {
+    public enum ShopType
+    {
+        Gladiator,
+        Item
+    }
+
     public partial class UI : Form
     {
         public bool MyGladList;
+        public ShopType shopType;
         public UI()
         {
             InitializeComponent();           
@@ -24,7 +31,13 @@ namespace Gladius
             rtbUI.Text = Player.CurrentTown.UpdateTownDescription();
         }
 
-        public string shopType = "";
+        
+
+        private void GoldUpdateAndVisible()
+        {
+            labelGold.Visible = true;
+            labelGold.Text = "Gold: "+ Player.Gold.ToString();
+        }
 
         private void btnTravel_Click(object sender, EventArgs e)
         {            
@@ -121,17 +134,17 @@ namespace Gladius
         private void btnViewGladiator_Click(object sender, EventArgs e)
         {
             string gladName = (string)dgvUI.CurrentCell.Value;
-            GladiatorView gv = new GladiatorView(Gladiator.PickGladitorFromDGV(MyGladList, gladName), MyGladList);
+            GladiatorView gv = new GladiatorView(Gladiator.PickGladiatorFromDGV(MyGladList, gladName), MyGladList);
             gv.Show();
             
         }
 
         private void btnGladShop_Click(object sender, EventArgs e)
         {
-            labelGold.Visible = true;
+            GoldUpdateAndVisible();
 
             btnViewGladiator.Visible = true;
-            shopType = "Gladiator";
+            shopType = ShopType.Gladiator;
             GladiatorShop currentShop = World.GladiatorShopByID(Player.CurrentTown.GladiatorShop.ID);
             rtbUI.Text += Environment.NewLine + currentShop.Name + Environment.NewLine
                 + currentShop.Description + Environment.NewLine;
@@ -160,12 +173,15 @@ namespace Gladius
         {
             switch (shopType)
             {
-                case "Gladiator":
+                case ShopType.Gladiator:
                     {
                         try
                         {
-                            rtbUI.Text += Environment.NewLine + (World.GladiatorShopByID(World.GLADIATOR_SHOP_ID_PROCTORIA).PurchaseGladiator(Gladiator.PickGladitorFromDGV(MyGladList, (string)dgvUI.CurrentCell.Value))) + Environment.NewLine;
-                            labelGold.Text = Player.Gold.ToString();
+                            rtbUI.Text += Environment.NewLine + 
+                                (World.GladiatorShopByID(World.GLADIATOR_SHOP_ID_PROCTORIA).PurchaseGladiator
+                                    (Gladiator.PickGladiatorFromDGV(MyGladList, (string)dgvUI.CurrentCell.Value))) 
+                                        + Environment.NewLine;
+                            GoldUpdateAndVisible();
                             dgvUI.Rows.Clear();
                             foreach (Gladiator gladiator in World.TempGladList)
                             {
@@ -178,8 +194,20 @@ namespace Gladius
                         }
                         break;
                     }
-                case "Item":
+                case ShopType.Item:
                     {
+                        Item selectedItem = Item.PickItemFromDGV((string)dgvUI.CurrentCell.Value);
+                        if (ItemShop.ItemPurchaseSuccessful(selectedItem))
+                        {
+                            GoldUpdateAndVisible();
+                            rtbUI.Text += "Item bought: " + selectedItem.Name + " for " + selectedItem.Value.ToString() + " gold." + Environment.NewLine;
+                        }
+                        else
+                        {
+                            rtbUI.Text += "You don't have enough gold to buy this." + Environment.NewLine;
+                        }
+                                                    
+
                         break;
                     }
             }
@@ -194,9 +222,8 @@ namespace Gladius
             panelList.Visible = true;
             panelTravel.Visible = false;
             panelTournamentSelector.Visible = false;
-            labelGold.Visible = true;
+            GoldUpdateAndVisible();
             btnViewGladiator.Visible = false;
-            labelGold.Text = "Gold: " + Player.Gold.ToString();
             dgvUI.RowHeadersVisible = false;
             dgvUI.ColumnCount = 3;
             dgvUI.Columns[0].Name = "Item";
@@ -207,17 +234,19 @@ namespace Gladius
             {
                 dgvUI.Rows.Add(item.Item.Name, item.Item.Value, item.Quantity);
             }
-            dgvUI.Width = 150;
             dgvUI.Columns[0].Width = 97;
             dgvUI.Columns[1].Width = 47;
+            dgvUI.Columns[2].Width = 47;
+            dgvUI.Width = 195;
+
 
         }
 
         private void btnShop_Click(object sender, EventArgs e)
         {
-            labelGold.Visible = true ;
+            GoldUpdateAndVisible();
 
-            shopType = "Item";
+            shopType = ShopType.Item;
             dgvUI.Rows.Clear();
             ItemShop currentShop = World.ItemShopByID(Player.CurrentTown.ItemShop.ID);
             dgvUI.Visible = true;
@@ -275,14 +304,19 @@ namespace Gladius
             {
                 dgvUI.Rows.Add(trophy.Name, trophy.Description);
             }
-            dgvUI.Columns[1].Width = 200;
+            dgvUI.Columns[1].Width = 400;
             dgvUI.Width = 250;
-            dgvUI.Columns[0].Width = 45;
+            dgvUI.Columns[0].Width = 150;
         }
 
         private void dgvUI_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             
+        }
+
+        private void UI_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
