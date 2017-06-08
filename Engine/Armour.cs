@@ -12,6 +12,7 @@ namespace Engine
         public Armour(int id, int value, string name, string description, int armourValue) : base(id, value, name, description)
         {
             ArmourValue = armourValue;
+            ItemType = ItemType.Armour;
         }
 
         public override string ToString()

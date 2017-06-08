@@ -301,7 +301,7 @@ namespace Engine
             int weaponDamage = RandomNumberGenerator.RandomNumber(attacker.WeaponEquipped.MinDamage, attacker.WeaponEquipped.MaxDamage);
             int damageDealt = (attacker.AttackDamage) * weaponDamage;
             int damageTaken = damageDealt / defender.ArmourEquipped.ArmourValue;
-            defender.CurrentHP -= damageDealt;
+            defender.CurrentHP -= damageTaken;
             return damageTaken;
         }
 

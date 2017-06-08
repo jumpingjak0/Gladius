@@ -28,8 +28,20 @@ namespace Engine
             Trophies = new List<Trophy>();
         }
 
-       
-       
+        public static bool HasThisItemInInventory(string name)
+        {
+            foreach (InventoryItem ii in Player.Inventory)
+            {
+                if (ii.Item.Name == name && ii.Quantity > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
     }
 
     

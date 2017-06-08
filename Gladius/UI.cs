@@ -134,7 +134,7 @@ namespace Gladius
         private void btnViewGladiator_Click(object sender, EventArgs e)
         {
             string gladName = (string)dgvUI.CurrentCell.Value;
-            GladiatorView gv = new GladiatorView(Gladiator.PickGladiatorFromDGV(MyGladList, gladName), MyGladList);
+            GladiatorView gv = new GladiatorView(Gladiator.PickGladiatorFromDGV(MyGladList, gladName), MyGladList, Player.Inventory);
             gv.Show();
             
         }
@@ -232,7 +232,10 @@ namespace Gladius
             
             foreach (InventoryItem item in Player.Inventory)
             {
-                dgvUI.Rows.Add(item.Item.Name, item.Item.Value, item.Quantity);
+                if (item.Quantity > 0)
+                {
+                    dgvUI.Rows.Add(item.Item.Name, item.Item.Value, item.Quantity);
+                }
             }
             dgvUI.Columns[0].Width = 97;
             dgvUI.Columns[1].Width = 47;

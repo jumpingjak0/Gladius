@@ -19,14 +19,14 @@ namespace Engine
         {
             if (item.Value <= Player.Gold)
             {
-                if (World.PlayerHasThisItemInInventory(item.Name))
+                if (Player.HasThisItemInInventory(item.Name))
                 {
                     World.InventoryItemByName(item.Name).Quantity += 1;
                     Player.Gold -= item.Value;
                 }
                 else
                 {
-                    Player.Inventory.Add(new InventoryItem(new Item(item.ID, item.Value, item.Name, item.Description)));
+                    Player.Inventory.Add(new InventoryItem(item));
                     Player.Gold -= item.Value;
 
                 }

@@ -14,6 +14,7 @@ namespace Engine
         {
             MaxDamage = maxDamage;
             MinDamage = minDamage;
+            ItemType = ItemType.Weapon;
         
         }
 

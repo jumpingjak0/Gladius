@@ -15,5 +15,11 @@ namespace Engine
             Item = item;
             Quantity = 1;
         }
+
+        public override string ToString()
+        {
+            return this.Item.Name;
+        }
+
     }
 }

@@ -153,6 +153,7 @@
             this.buttonWeaponChange.TabIndex = 10;
             this.buttonWeaponChange.Text = "Weapon";
             this.buttonWeaponChange.UseVisualStyleBackColor = true;
+            this.buttonWeaponChange.Click += new System.EventHandler(this.buttonWeaponChange_Click);
             // 
             // buttonArmourChange
             // 
@@ -162,6 +163,7 @@
             this.buttonArmourChange.TabIndex = 11;
             this.buttonArmourChange.Text = "Armour";
             this.buttonArmourChange.UseVisualStyleBackColor = true;
+            this.buttonArmourChange.Click += new System.EventHandler(this.buttonArmourChange_Click);
             // 
             // labelName
             // 

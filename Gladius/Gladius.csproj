@@ -48,6 +48,12 @@
     <Compile Include="Battlefield.Designer.cs">
       <DependentUpon>Battlefield.cs</DependentUpon>
     </Compile>
+    <Compile Include="EquipItemScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EquipItemScreen.Designer.cs">
+      <DependentUpon>EquipItemScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="GladiatorView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +70,9 @@
     </Compile>
     <EmbeddedResource Include="Battlefield.resx">
       <DependentUpon>Battlefield.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EquipItemScreen.resx">
+      <DependentUpon>EquipItemScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GladiatorView.resx">
       <DependentUpon>GladiatorView.cs</DependentUpon>

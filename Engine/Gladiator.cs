@@ -23,7 +23,21 @@ namespace Engine
         public int BaseHP;
         public int CurrentHP;
         public int Level;
-        public int EXP;
+        private int exp;
+        public int EXP
+        {
+            set
+            {
+                exp += value;
+                this.LevelUpGladiator();
+            }
+
+            get
+            {
+               return this.exp;
+            }
+            
+        }        
         public int ExpToNextLevel;
         public Weapon WeaponEquipped;
         public Armour ArmourEquipped;
@@ -46,19 +60,20 @@ namespace Engine
             Nickname = null;
             InPlayersTeam = false;
             Description = description;
-            EXP = exp;
+            EXP = 0;
             BaseDamage = 3;
             BaseHP = 10;           
-            WeaponEquipped = World.WeaponByID(World.WEAPON_ID_FISTS);
+            WeaponEquipped = World.WeaponByID(World.WEAPON_ID_DAGGER);
             ArmourEquipped = World.ArmourByID(World.ARMOUR_ID_RAGS);
             LevelUpGladiator();
-            RewardEXP = 30 * Level;
-            Value = 100 * Level;
+            
             movementRange = 3;
             attackRange = 1;
         }
 
-        
+  
+            
+
 
       
 
@@ -137,6 +152,8 @@ namespace Engine
         {
             AttackDamage = BaseDamage + Level * 2;
             MaxHP = BaseHP + Level * 2;
+            RewardEXP = 30 * Level;
+            Value = 100 * Level;
         }
 
         public static Gladiator PickGladiatorFromDGV(bool myGladList, string gladName)

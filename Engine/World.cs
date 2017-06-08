@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Engine
 {
@@ -23,6 +21,7 @@ namespace Engine
         public static void PopulateTempGladList()
         { 
             TempGladList.Add(new Gladiator("Quintos", "A hulking menace."));
+            TempGladList[0].EXP = 1000;
             TempGladList.Add(new Gladiator("Decidos", "A graceful dancer of death."));
             TempGladList.Add(new Gladiator("Brutus", "A man of pure muscle."));
 
@@ -47,14 +46,14 @@ namespace Engine
         public const int TOWN_ID_CTHAKMIJ = 3;
         public const int TOWN_ID_ELLANERAAN = 4;
 
-        public const int WEAPON_ID_FISTS = 11;
-        public const int WEAPON_ID_SHORT_SWORD = 12;
-        public const int WEAPON_ID_SPEAR = 13;
+        public const int WEAPON_ID_DAGGER = 1;
+        public const int WEAPON_ID_SHORT_SWORD = 2;
+        public const int WEAPON_ID_SPEAR = 3;
 
-        public const int ARMOUR_ID_RAGS = 21;
-        public const int ARMOUR_ID_LEATHER = 22;
-        public const int ARMOUR_ID_CHAINMAIL = 23;
-        public const int ARMOUR_ID_PLATE = 24;
+        public const int ARMOUR_ID_RAGS = 1;
+        public const int ARMOUR_ID_LEATHER = 2;
+        public const int ARMOUR_ID_CHAINMAIL = 3;
+        public const int ARMOUR_ID_PLATE = 4;
 
         public const int TOURNAMENT_ID_PROCTORIAOPEN = 11;
         public const int TOURNAMENT_ID_ATTELAIRROOKIES = 21;
@@ -76,9 +75,25 @@ namespace Engine
 
         public const int ITEM_SHOP_ID_PROCTORIA = 1;
 
+        public static void Create()
+        {
+            
+            PopulateArmour();
+            PopulateWeapons();
+            PopulateBattleFields();
+            PopulateTrophy();
+            PopulateTempGladList(); //temp
+            PopulateTournaments();
+            PopulateArena();
+            PopulateGladiatorShop();
+            PopulateShopItems();
+            PopulateItemShop();
+            PopulateTowns();
+        }
+
         public static void PopulateWeapons()
         {
-            Weapons.Add(new Weapon(WEAPON_ID_FISTS, 10, "Fists", "Used for punching", 2, 5 ));
+            Weapons.Add(new Weapon(WEAPON_ID_DAGGER, 10, "Dagger", "Used for stabbing", 2, 5 ));
             Weapons.Add(new Weapon(WEAPON_ID_SHORT_SWORD, 25, "Short Sword", "A small blade useful in close quarters", 4, 7));
             Weapons.Add(new Weapon(WEAPON_ID_SPEAR, 40, "Spear", "A long weapon for stabbing at range", 5, 10));
         }
@@ -180,21 +195,6 @@ namespace Engine
                         ItemShopByID(ITEM_SHOP_ID_PROCTORIA)));
         }
 
-        public static void Create()
-        {
-            PopulateWeapons();
-            PopulateArmour();
-            PopulateBattleFields();
-            PopulateTrophy();
-            PopulateTempGladList(); //temp
-            PopulateTournaments();
-            PopulateArena();
-            PopulateGladiatorShop();
-            PopulateShopItems();
-            PopulateItemShop();
-            PopulateTowns();
-        }
-
         public static Town TownByID(int id)
         {
             foreach (Town town in Towns)
@@ -228,17 +228,7 @@ namespace Engine
             }
             return null;
         }
-        public static bool PlayerHasThisItemInInventory(string name)
-        {
-            foreach(InventoryItem ii in Player.Inventory)
-            {
-                if (ii.Item.Name == name && ii.Quantity > 0)
-                {
-                    return true;
-                }              
-            }
-            return false;
-        }
+       
         public static InventoryItem InventoryItemByName(string name)
         {
             foreach(InventoryItem ii in Player.Inventory)
