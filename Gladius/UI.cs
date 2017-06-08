@@ -308,7 +308,7 @@ namespace Gladius
                 dgvUI.Rows.Add(trophy.Name, trophy.Description);
             }
             dgvUI.Columns[1].Width = 400;
-            dgvUI.Width = 250;
+            dgvUI.Width = 550;
             dgvUI.Columns[0].Width = 150;
         }
 

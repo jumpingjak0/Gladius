@@ -30,6 +30,12 @@ namespace Gladius
                     cbItemToEquip.Items.Add(ii);
                 }
             }
+            try
+            {
+                cbItemToEquip.SelectedIndex = 0;
+            }
+            catch
+            { }
             GladiatorToEquip = inGlad;
         }
 
@@ -42,21 +48,14 @@ namespace Gladius
             {
                 case ItemType.Armour:
                     {
+                        UnequipItem(GladiatorToEquip.ArmourEquipped);
                         GladiatorToEquip.ArmourEquipped = (Armour)ItemToEquip.Item;
                         ItemToEquip.Quantity--;
                         break;
                     }
                 case ItemType.Weapon:
                     {
-                        ItemToUnequip = GladiatorToEquip.WeaponEquipped;
-                        if(Player.HasThisItemInInventory(ItemToUnequip.Name))
-                        {
-                            World.InventoryItemByName(ItemToUnequip.Name).Quantity += 1;
-                        }
-                        else
-                        {
-                            Player.Inventory.Add(new InventoryItem(ItemToUnequip));
-                        }
+                        UnequipItem(GladiatorToEquip.WeaponEquipped);
                         GladiatorToEquip.WeaponEquipped = (Weapon)ItemToEquip.Item;
                         ItemToEquip.Quantity--;
                         break;
@@ -64,6 +63,18 @@ namespace Gladius
             }
             GladiatorView.UpdateGladiator();
             this.Close();
+        }
+
+        private void UnequipItem(Item ItemToUnequip)
+        {           
+            if (Player.HasThisItemInInventory(ItemToUnequip.Name))
+            {
+                World.InventoryItemByName(ItemToUnequip.Name).Quantity += 1;
+            }
+            else
+            {
+                Player.Inventory.Add(new InventoryItem(ItemToUnequip));
+            }
         }
     }
 }

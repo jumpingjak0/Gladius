@@ -93,7 +93,14 @@ namespace Engine
                 {
                     Button.ForeColor = Color.Red;
                 }
-                Button.Text = gladiator.Name;
+                if (gladiator.Nickname == null || gladiator.Nickname == "")
+                {
+                    Button.Text = gladiator.Name;
+                }
+                else
+                {
+                    Button.Text = gladiator.Nickname;
+                }
             }
             else
             {
