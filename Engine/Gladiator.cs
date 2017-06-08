@@ -23,21 +23,7 @@ namespace Engine
         public int BaseHP;
         public int CurrentHP;
         public int Level;
-        private int exp;
-        public int EXP
-        {
-            set
-            {
-                exp += value;
-                this.LevelUpGladiator();
-            }
-
-            get
-            {
-               return this.exp;
-            }
-            
-        }        
+        public int EXP;       
         public int ExpToNextLevel;
         public Weapon WeaponEquipped;
         public Armour ArmourEquipped;
@@ -104,8 +90,8 @@ namespace Engine
             int exp = EXP;
             for(int i = 1; exp >= 0; i++ )
             {
-                int expForNextLevel = i * 100;
-                if(exp - expForNextLevel > 0)
+                int expForNextLevel = Level * 100;
+                if(exp - expForNextLevel >= 0)
                 {
                     Level++;
                     exp -= expForNextLevel;
@@ -123,22 +109,23 @@ namespace Engine
         {
             int previousLevel = Level;
             Level = 1;
-            int exp = EXP;
-            for (int i = 1; exp >= 0; i++)
+            int expTemp = EXP;
+            for (int i = 1; expTemp >= 0; i++)
             {
-                int expForNextLevel = i * 100;
-                if (exp - expForNextLevel > 0)
+                int expForNextLevel = Level * 100;
+                if (expTemp - expForNextLevel >= 0)
                 {
                     Level++;
-                    exp -= expForNextLevel;
+                    expTemp -= expForNextLevel;
 
                 }
                 else
                 {
-                    ExpToNextLevel = -(exp - expForNextLevel);
+                    ExpToNextLevel = -(expTemp - expForNextLevel);
                     break;
                 }
             }
+
             StatGladiatorUpToLevel();
 
             if (previousLevel < Level)

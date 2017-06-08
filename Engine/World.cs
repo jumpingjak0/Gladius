@@ -21,7 +21,6 @@ namespace Engine
         public static void PopulateTempGladList()
         { 
             TempGladList.Add(new Gladiator("Quintos", "A hulking menace."));
-            TempGladList[0].EXP = 1000;
             TempGladList.Add(new Gladiator("Decidos", "A graceful dancer of death."));
             TempGladList.Add(new Gladiator("Brutus", "A man of pure muscle."));
 

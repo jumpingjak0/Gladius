@@ -25,6 +25,10 @@ namespace Engine
             RewardGold = rewardGold;
             RewardExp = rewardExp;
             EnemyTeam = enemyTeam;
+            foreach(Gladiator glad in enemyTeam)
+            {
+                glad.LevelUpGladiator();
+            }
             TownID = townID;
         }
     }

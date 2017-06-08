@@ -64,7 +64,7 @@ namespace Gladius
         public void UpdateGladiator()
         {
             labelLevel.Text = inGladiator.Level.ToString();
-            labelExpToNextLevel.Text = inGladiator.ExpToNextLevel.ToString();
+            labelExpToNextLevel.Text = inGladiator.EXP + "  (" + inGladiator.ExpToNextLevel.ToString() + " to next level)";
             labelHealth.Text = inGladiator.MaxHP.ToString();
             labelAttack.Text = inGladiator.AttackDamage.ToString();
             labelWeapon.Text = inGladiator.WeaponEquipped.ToString();

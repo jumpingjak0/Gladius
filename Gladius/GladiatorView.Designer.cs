@@ -113,9 +113,9 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(13, 60);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(97, 13);
+            this.label14.Size = new System.Drawing.Size(31, 13);
             this.label14.TabIndex = 6;
-            this.label14.Text = "EXP to Next Level:";
+            this.label14.Text = "EXP:";
             // 
             // label17
             // 
