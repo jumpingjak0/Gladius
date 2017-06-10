@@ -16,6 +16,13 @@ namespace Engine
             Quantity = 1;
         }
 
+        public InventoryItem(Item item, int quantity)
+        {
+            Item = item;
+            Quantity = quantity;
+        }
+
+
         public override string ToString()
         {
             return this.Item.Name;

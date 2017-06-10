@@ -20,8 +20,8 @@ namespace Gladius
     {
         public bool MyGladList;
         public ShopType shopType;
-        int saveLocation;
-        bool saveLocationSelected;
+        int saveLoadLocation;
+        bool saveLoadLocationSelected;
         public UI()
         {
             InitializeComponent();
@@ -318,7 +318,7 @@ namespace Gladius
             panelLoadSave.Visible = true;
             lblSaveLoadMessage.Visible = false;
             updateSaveNames();
-            saveLocationSelected = false;
+            saveLoadLocationSelected = false;
             
 
         }
@@ -327,16 +327,16 @@ namespace Gladius
             rbSave1.Checked = true;
             rbSave2.Checked = false;
             rbSave3.Checked = false;
-            saveLocation = 0;
-            saveLocationSelected = true;
+            saveLoadLocation = 0;
+            saveLoadLocationSelected = true;
         }
         private void rbSave2_Click(object sender, EventArgs e)
         {
             rbSave1.Checked = false ;
             rbSave2.Checked = true;
             rbSave3.Checked = false;
-            saveLocation = 1;
-            saveLocationSelected = true;
+            saveLoadLocation = 1;
+            saveLoadLocationSelected = true;
 
         }
         private void rbSave3_Click(object sender, EventArgs e)
@@ -344,18 +344,18 @@ namespace Gladius
             rbSave1.Checked = false;
             rbSave2.Checked = false;
             rbSave3.Checked = true;
-            saveLocation = 2;
-            saveLocationSelected = true;
+            saveLoadLocation = 2;
+            saveLoadLocationSelected = true;
 
         }
         private void btnSave_Click_1(object sender, EventArgs e)
         {
-            string saveMessage = SaveGame.FileNameIsValid(textBoxSaveName.Text);
-            if (saveLocationSelected)
+            string saveMessage = SaveGame.FileNameIsValid(textBoxSaveName.Text, saveLoadLocation);
+            if (saveLoadLocationSelected)
             {
                 if (saveMessage == "")
                 {
-                    SaveGame.SaveWholeGame(textBoxSaveName.Text, saveLocation);
+                    SaveGame.SaveGameToFile(textBoxSaveName.Text, saveLoadLocation);
                     lblSaveLoadMessage.Text = "Game successfully saved";
                     textBoxSaveName.Text = "";
                 }
@@ -379,6 +379,21 @@ namespace Gladius
             lblSave1.Text = SaveNames[0];
             lblSave2.Text = SaveNames[1];
             lblSave3.Text = SaveNames[2];
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            if(saveLoadLocationSelected)
+            {
+                List<string> listOfSaves = SaveGame.ListOfSaves();
+                LoadGame.LoadGameFromFile(listOfSaves[saveLoadLocation]);
+                lblSaveLoadMessage.Text = "File Successfully Loaded";
+            }
+            else
+            {
+                lblSaveLoadMessage.Text = "No Load Location Selected";
+                lblSaveLoadMessage.Visible = true;
+            }
         }
     }
 }

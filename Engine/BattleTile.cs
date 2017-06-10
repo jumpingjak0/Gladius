@@ -329,13 +329,9 @@ namespace Engine
 
                 }
             }
+
+            Trophy.AwardTrophy(Player.CurrentTournament.ID, rtbBattleMonitor);
             
-            if(!Player.CurrentTournament.Trophy.PlayerHasTrophy)
-            {
-                Player.Trophies.Add(Player.CurrentTournament.Trophy);
-                Player.CurrentTournament.Trophy.PlayerHasTrophy = true;
-                rtbBattleMonitor.Text += "You have been awarded the " + Player.CurrentTournament.Trophy.Name + " Trophy"+ Environment.NewLine;
-            }
             endBattle.Visible = true;
         }
 
@@ -348,10 +344,10 @@ namespace Engine
         
         public bool TileIsInMovementRange(BattleTile target)
         {
-            if (target.X > SelectedTile.X + SelectedTile.gladiator.movementRange || 
-                    target.X < SelectedTile.X - SelectedTile.gladiator.movementRange || 
-                        target.Y > SelectedTile.Y + SelectedTile.gladiator.movementRange || 
-                            target.Y < SelectedTile.Y - SelectedTile.gladiator.movementRange)
+            if (target.X > SelectedTile.X + SelectedTile.gladiator.MovementRange || 
+                    target.X < SelectedTile.X - SelectedTile.gladiator.MovementRange || 
+                        target.Y > SelectedTile.Y + SelectedTile.gladiator.MovementRange || 
+                            target.Y < SelectedTile.Y - SelectedTile.gladiator.MovementRange)
             {
                 return false;
             }
@@ -362,10 +358,10 @@ namespace Engine
         }
         public bool TileIsInAttackRange(BattleTile target)
         {
-            if (SelectedTile.gladiator.X > target.X + target.gladiator.attackRange ||
-                    SelectedTile.gladiator.X < target.X - target.gladiator.attackRange ||
-                        SelectedTile.gladiator.Y > target.Y + target.gladiator.attackRange ||
-                            SelectedTile.gladiator.Y < target.Y - target.gladiator.attackRange)
+            if (SelectedTile.gladiator.X > target.X + target.gladiator.AttackRange ||
+                    SelectedTile.gladiator.X < target.X - target.gladiator.AttackRange ||
+                        SelectedTile.gladiator.Y > target.Y + target.gladiator.AttackRange ||
+                            SelectedTile.gladiator.Y < target.Y - target.gladiator.AttackRange)
             {
                 return false;
             }

@@ -54,7 +54,6 @@
     <Compile Include="Player.cs" />
     <Compile Include="RandomNumberGenerator.cs" />
     <Compile Include="SaveGame.cs" />
-    <Compile Include="SaveLoadMethods.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="Tournament.cs" />
     <Compile Include="Town.cs" />

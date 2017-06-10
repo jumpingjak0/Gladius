@@ -1,0 +1,4 @@
+Player Gold|300
+Gladiators|0
+Trophies|0
+Inventory|0

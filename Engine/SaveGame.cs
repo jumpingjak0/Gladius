@@ -10,7 +10,7 @@ namespace Engine
     {
         private const string saveDirectory = "SaveDirectory.txt";
 
-        public static void SaveWholeGame(string inFileName, int saveLocation)
+        public static void SaveGameToFile(string inFileName, int saveLocation)
         {
             string filename = inFileName + ".txt";
             updateSaveDirectory(inFileName, saveLocation);        
@@ -79,11 +79,11 @@ namespace Engine
         {
             string gladiatorInformation;
             StreamWriter writer = new StreamWriter(fileName, append: true);
-            writer.WriteLine("Gladiators|" + Player.MySchool.Capacity);
+            writer.WriteLine("Gladiators|" + Player.MySchool.Count);
             foreach(Gladiator glad in Player.MySchool)
             {
                 //name|nickname|description|EXp|weapon|armour|movementRange|attackRange
-                gladiatorInformation = glad.Name + "|" + glad.Nickname + "|" + glad.Description + "|" + glad.EXP + "|" + glad.WeaponEquipped.ID + "|" + glad.ArmourEquipped.ID + "|" + glad.movementRange + "|" + glad.attackRange;
+                gladiatorInformation = glad.Name + "|" + glad.Nickname + "|" + glad.Description + "|" + glad.EXP + "|" + glad.WeaponEquipped.ID + "|" + glad.ArmourEquipped.ID + "|" + glad.MovementRange + "|" + glad.AttackRange;
                 writer.WriteLine(gladiatorInformation);
             }
             writer.Close();
@@ -91,7 +91,7 @@ namespace Engine
         private static void SaveTrophies(string fileName)
         {
             StreamWriter writer = new StreamWriter(fileName,  append: true);
-            writer.WriteLine("Trophies|" + Player.Trophies.Capacity);
+            writer.WriteLine("Trophies|" + Player.Trophies.Count);
             {
                 foreach(Trophy trophy in Player.Trophies)
                 {
@@ -103,7 +103,7 @@ namespace Engine
         private static void SaveInventory(string fileName)
         {
             StreamWriter writer = new StreamWriter(fileName, append: true);
-            writer.WriteLine("Inventory|" + Player.Inventory.Capacity);
+            writer.WriteLine("Inventory|" + Player.Inventory.Count);
             foreach(InventoryItem ii in Player.Inventory)
             {
                 writer.WriteLine(ii.Item.ItemType + "|" + ii.Item.ID + "|" + ii.Quantity);
@@ -141,7 +141,7 @@ namespace Engine
             
         
 
-        public static string FileNameIsValid(string inFileName)
+        public static string FileNameIsValid(string inFileName, int saveLocation)
         {
             List<string> previousSaves = ListOfSaves();
             string message = "";
@@ -155,13 +155,18 @@ namespace Engine
                 message = "Cannot name file \"Empty\"";
                 return message;
             }
+            int i = 0;
             foreach (string save in previousSaves)
             {
                 if (save == inFileName)
                 {
-                    message = "Save name already used";
-                    return message;
+                    if (i != saveLocation)
+                    {
+                        message = "Save name already used";
+                        return message;
+                    }
                 }
+                i++;
                 
             }
             return message;

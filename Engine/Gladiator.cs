@@ -30,13 +30,13 @@ namespace Engine
         public int RewardEXP;
         public bool InPlayersTeam;
         public int Value;
-        public int movementRange;
+        public int MovementRange;
         public State State;
         public bool HasMoved;
         public int X;
         public int Y;
         public BattleTile CurrentTile;
-        public int attackRange;
+        public int AttackRange;
         public int potentialEXP;
 
 
@@ -50,18 +50,34 @@ namespace Engine
             BaseDamage = 3;
             BaseHP = 10;           
             WeaponEquipped = World.WeaponByID(World.WEAPON_ID_DAGGER);
-            ArmourEquipped = World.ArmourByID(World.ARMOUR_ID_RAGS);
+            ArmourEquipped = World.ArmourByID(World.ARMOUR_ID_RAGS);         
+            MovementRange = 3;
+            AttackRange = 1;
             LevelUpGladiator();
-            
-            movementRange = 3;
-            attackRange = 1;
+
         }
 
-  
-            
+        public Gladiator(string name, string nickname, string description, int exp, int weaponID, int ArmourID, int movementRange, int attackRange)
+        {
+            Name = name;
+            Nickname = nickname;
+            InPlayersTeam = true; 
+            Description = description;
+            EXP = exp;
+            BaseDamage = 3;
+            BaseHP = 10;
+            WeaponEquipped = World.WeaponByID(weaponID);
+            ArmourEquipped = World.ArmourByID(ArmourID);
+            MovementRange = movementRange;
+            AttackRange = attackRange;
+            LevelUpGladiator();
+
+        }
 
 
-      
+
+
+
 
         public override string ToString()
         {
