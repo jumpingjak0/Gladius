@@ -20,12 +20,13 @@ namespace Gladius
     {
         public bool MyGladList;
         public ShopType shopType;
+        int saveLocation;
+        bool saveLocationSelected;
         public UI()
         {
-            InitializeComponent();           
-            panelTravel.Visible = false;
-            panelList.Visible = false;
-            panelTournamentSelector.Visible = false;
+            InitializeComponent();
+            HidePanels();
+            panelMenu.Visible = true;
             World.Create();
             Player.CurrentTown = World.TownByID(World.TOWN_ID_PROCTORIA);
             rtbUI.Text = Player.CurrentTown.UpdateTownDescription();
@@ -40,10 +41,9 @@ namespace Gladius
         }
 
         private void btnTravel_Click(object sender, EventArgs e)
-        {            
+        {
+            HidePanels();
             panelTravel.Visible = true;
-            panelList.Visible = false;
-            panelTournamentSelector.Visible = false;
 
         }
         private void btnProctoria_Click(object sender, EventArgs e)
@@ -77,15 +77,12 @@ namespace Gladius
 
         private void btnArena_Click(object sender, EventArgs e)
         {
-           
-           
-                panelList.Visible = false;
-                panelTravel.Visible = false;
-                panelTournamentSelector.Visible = true;
-                cbTournament.DataSource = Player.CurrentTown.Arena.Tournaments;
-                cbTournament.DisplayMember = "Name";
-                cbTournament.ValueMember = "ID";
-                cbTournament.SelectedIndex = 0;
+            HidePanels();
+            panelTournamentSelector.Visible = true;
+            cbTournament.DataSource = Player.CurrentTown.Arena.Tournaments;
+            cbTournament.DisplayMember = "Name";
+            cbTournament.ValueMember = "ID";
+            cbTournament.SelectedIndex = 0;
             
         }
 
@@ -95,9 +92,7 @@ namespace Gladius
             Player.CurrentTournament = currentTournament;
             BattlefieldForm bf = new BattlefieldForm(this, Player.MySchool, currentTournament.EnemyTeam);
             bf.Show();
-            panelMenu.Visible = false;
-            panelTravel.Visible = false;
-            panelList.Visible = false;
+            HidePanels();
         }
 
         public void MenuVisibilty(bool visibility)
@@ -110,9 +105,8 @@ namespace Gladius
             btnViewGladiator.Visible = true;
 
             MyGladList = true;
-            panelList.Visible = true;
-            panelTravel.Visible = false;
-            panelTournamentSelector.Visible = false;
+            HidePanels();
+            panelList.Visible = true;           
             buttonPurchase.Visible = false;
             labelGold.Visible = false;
             dgvUI.RowHeadersVisible = false;
@@ -131,7 +125,7 @@ namespace Gladius
             
         }
 
-        private void btnViewGladiator_Click(object sender, EventArgs e)
+        private void btnViewGladiator_click(object sender, EventArgs e)
         {
             string gladName = (string)dgvUI.CurrentCell.Value;
             GladiatorView gv = new GladiatorView(Gladiator.PickGladiatorFromDGV(MyGladList, gladName), MyGladList, Player.Inventory);
@@ -149,9 +143,8 @@ namespace Gladius
             rtbUI.Text += Environment.NewLine + currentShop.Name + Environment.NewLine
                 + currentShop.Description + Environment.NewLine;
             MyGladList = false;
+            HidePanels();
             panelList.Visible = true;
-            panelTravel.Visible = false;
-            panelTournamentSelector.Visible = false;
             buttonPurchase.Visible = true;
             labelGold.Visible = true;
             labelGold.Text = "Gold: " + Player.Gold.ToString();
@@ -219,9 +212,8 @@ namespace Gladius
             dgvUI.Rows.Clear();
             dgvUI.Visible = true;
             buttonPurchase.Visible = true;
-            panelList.Visible = true;
-            panelTravel.Visible = false;
-            panelTournamentSelector.Visible = false;
+            HidePanels();
+            panelList.Visible = true;           
             GoldUpdateAndVisible();
             btnViewGladiator.Visible = false;
             dgvUI.RowHeadersVisible = false;
@@ -254,9 +246,8 @@ namespace Gladius
             ItemShop currentShop = World.ItemShopByID(Player.CurrentTown.ItemShop.ID);
             dgvUI.Visible = true;
             buttonPurchase.Visible = true;
-            panelList.Visible = true;
-            panelTravel.Visible = false;
-            panelTournamentSelector.Visible = false;
+            HidePanels();
+            panelList.Visible = true;        
             labelGold.Visible = true;
             btnViewGladiator.Visible = false;
             labelGold.Text = "Gold: " + Player.Gold.ToString();
@@ -292,8 +283,7 @@ namespace Gladius
         private void btnMyTrophies_Click(object sender, EventArgs e)
         {
             btnViewGladiator.Visible = false;
-            panelTournamentSelector.Visible = false;
-            panelTravel.Visible = false;
+            HidePanels();
             panelList.Visible = true;
             buttonPurchase.Visible = false;
             labelGold.Visible = false;
@@ -307,19 +297,88 @@ namespace Gladius
             {
                 dgvUI.Rows.Add(trophy.Name, trophy.Description);
             }
-            dgvUI.Columns[1].Width = 400;
-            dgvUI.Width = 550;
+            dgvUI.Columns[1].Width = 240;
+            dgvUI.Width = 400;
             dgvUI.Columns[0].Width = 150;
         }
 
-        private void dgvUI_CellClick(object sender, DataGridViewCellEventArgs e)
+
+
+        private void HidePanels()
         {
-            
+            panelList.Visible = false;
+            panelLoadSave.Visible = false;
+            panelTournamentSelector.Visible = false;
+            panelTravel.Visible = false;
         }
 
-        private void UI_Load(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
+            HidePanels();
+            panelLoadSave.Visible = true;
+            lblSaveLoadMessage.Visible = false;
+            updateSaveNames();
+            saveLocationSelected = false;
+            
 
+        }
+        private void rbSave1_Click(object sender, EventArgs e)
+        {
+            rbSave1.Checked = true;
+            rbSave2.Checked = false;
+            rbSave3.Checked = false;
+            saveLocation = 0;
+            saveLocationSelected = true;
+        }
+        private void rbSave2_Click(object sender, EventArgs e)
+        {
+            rbSave1.Checked = false ;
+            rbSave2.Checked = true;
+            rbSave3.Checked = false;
+            saveLocation = 1;
+            saveLocationSelected = true;
+
+        }
+        private void rbSave3_Click(object sender, EventArgs e)
+        {
+            rbSave1.Checked = false;
+            rbSave2.Checked = false;
+            rbSave3.Checked = true;
+            saveLocation = 2;
+            saveLocationSelected = true;
+
+        }
+        private void btnSave_Click_1(object sender, EventArgs e)
+        {
+            string saveMessage = SaveGame.FileNameIsValid(textBoxSaveName.Text);
+            if (saveLocationSelected)
+            {
+                if (saveMessage == "")
+                {
+                    SaveGame.SaveWholeGame(textBoxSaveName.Text, saveLocation);
+                    lblSaveLoadMessage.Text = "Game successfully saved";
+                    textBoxSaveName.Text = "";
+                }
+                else
+                {
+                    lblSaveLoadMessage.Text = saveMessage;
+                    lblSaveLoadMessage.Visible = true;
+                }
+            }
+            else
+            {
+                lblSaveLoadMessage.Text = "No Save Location Selected";
+                lblSaveLoadMessage.Visible = true;
+            }
+            updateSaveNames();
+
+        }        
+        private void updateSaveNames()
+        {
+            List<string> SaveNames = SaveGame.ListOfSaves();
+            lblSave1.Text = SaveNames[0];
+            lblSave2.Text = SaveNames[1];
+            lblSave3.Text = SaveNames[2];
         }
     }
 }

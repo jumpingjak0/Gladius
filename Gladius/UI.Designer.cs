@@ -32,7 +32,7 @@
             this.panelMenu = new System.Windows.Forms.Panel();
             this.btnMyTrophies = new System.Windows.Forms.Button();
             this.buttonInventory = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnSaveLoad = new System.Windows.Forms.Button();
             this.btnTravel = new System.Windows.Forms.Button();
             this.btnArena = new System.Windows.Forms.Button();
             this.btnMyGlad = new System.Windows.Forms.Button();
@@ -52,11 +52,24 @@
             this.cbTournament = new System.Windows.Forms.ComboBox();
             this.panelTournamentSelector = new System.Windows.Forms.Panel();
             this.btnEnterTournament = new System.Windows.Forms.Button();
+            this.panelLoadSave = new System.Windows.Forms.Panel();
+            this.lblSaveLoadMessage = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.rbSave3 = new System.Windows.Forms.RadioButton();
+            this.rbSave2 = new System.Windows.Forms.RadioButton();
+            this.rbSave1 = new System.Windows.Forms.RadioButton();
+            this.lblSave3 = new System.Windows.Forms.Label();
+            this.lblSave2 = new System.Windows.Forms.Label();
+            this.lblSave1 = new System.Windows.Forms.Label();
+            this.textBoxSaveName = new System.Windows.Forms.TextBox();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.panelTravel.SuspendLayout();
             this.panelList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUI)).BeginInit();
             this.panelTournamentSelector.SuspendLayout();
+            this.panelLoadSave.SuspendLayout();
             this.SuspendLayout();
             // 
             // rtbUI
@@ -73,7 +86,7 @@
             // 
             this.panelMenu.Controls.Add(this.btnMyTrophies);
             this.panelMenu.Controls.Add(this.buttonInventory);
-            this.panelMenu.Controls.Add(this.btnSave);
+            this.panelMenu.Controls.Add(this.btnSaveLoad);
             this.panelMenu.Controls.Add(this.btnTravel);
             this.panelMenu.Controls.Add(this.btnArena);
             this.panelMenu.Controls.Add(this.btnMyGlad);
@@ -104,14 +117,15 @@
             this.buttonInventory.UseVisualStyleBackColor = true;
             this.buttonInventory.Click += new System.EventHandler(this.buttonInventory_Click);
             // 
-            // btnSave
+            // btnSaveLoad
             // 
-            this.btnSave.Location = new System.Drawing.Point(3, 148);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(109, 23);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "Save Game";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSaveLoad.Location = new System.Drawing.Point(3, 148);
+            this.btnSaveLoad.Name = "btnSaveLoad";
+            this.btnSaveLoad.Size = new System.Drawing.Size(109, 23);
+            this.btnSaveLoad.TabIndex = 5;
+            this.btnSaveLoad.Text = "Save/Load Game";
+            this.btnSaveLoad.UseVisualStyleBackColor = true;
+            this.btnSaveLoad.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnTravel
             // 
@@ -170,7 +184,7 @@
             this.panelTravel.Controls.Add(this.btnCthakMij);
             this.panelTravel.Controls.Add(this.btnProctoria);
             this.panelTravel.Controls.Add(this.label1);
-            this.panelTravel.Location = new System.Drawing.Point(150, 230);
+            this.panelTravel.Location = new System.Drawing.Point(150, 242);
             this.panelTravel.Name = "panelTravel";
             this.panelTravel.Size = new System.Drawing.Size(300, 200);
             this.panelTravel.TabIndex = 2;
@@ -229,9 +243,9 @@
             this.panelList.Controls.Add(this.buttonPurchase);
             this.panelList.Controls.Add(this.btnViewGladiator);
             this.panelList.Controls.Add(this.dgvUI);
-            this.panelList.Location = new System.Drawing.Point(150, 229);
+            this.panelList.Location = new System.Drawing.Point(134, 233);
             this.panelList.Name = "panelList";
-            this.panelList.Size = new System.Drawing.Size(408, 217);
+            this.panelList.Size = new System.Drawing.Size(410, 220);
             this.panelList.TabIndex = 3;
             this.panelList.Visible = false;
             // 
@@ -262,7 +276,7 @@
             this.btnViewGladiator.TabIndex = 1;
             this.btnViewGladiator.Text = "View Gladiator";
             this.btnViewGladiator.UseVisualStyleBackColor = true;
-            this.btnViewGladiator.Click += new System.EventHandler(this.btnViewGladiator_Click);
+            this.btnViewGladiator.Click += new System.EventHandler(this.btnViewGladiator_click);
             // 
             // dgvUI
             // 
@@ -274,7 +288,6 @@
             this.dgvUI.ReadOnly = true;
             this.dgvUI.Size = new System.Drawing.Size(100, 200);
             this.dgvUI.TabIndex = 0;
-            this.dgvUI.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUI_CellClick);
             // 
             // cbTournament
             // 
@@ -305,11 +318,134 @@
             this.btnEnterTournament.UseVisualStyleBackColor = true;
             this.btnEnterTournament.Click += new System.EventHandler(this.btnEnterTournament_Click);
             // 
+            // panelLoadSave
+            // 
+            this.panelLoadSave.Controls.Add(this.lblSaveLoadMessage);
+            this.panelLoadSave.Controls.Add(this.label5);
+            this.panelLoadSave.Controls.Add(this.rbSave3);
+            this.panelLoadSave.Controls.Add(this.rbSave2);
+            this.panelLoadSave.Controls.Add(this.rbSave1);
+            this.panelLoadSave.Controls.Add(this.lblSave3);
+            this.panelLoadSave.Controls.Add(this.lblSave2);
+            this.panelLoadSave.Controls.Add(this.lblSave1);
+            this.panelLoadSave.Controls.Add(this.textBoxSaveName);
+            this.panelLoadSave.Controls.Add(this.btnLoad);
+            this.panelLoadSave.Controls.Add(this.btnSave);
+            this.panelLoadSave.Location = new System.Drawing.Point(150, 229);
+            this.panelLoadSave.Name = "panelLoadSave";
+            this.panelLoadSave.Size = new System.Drawing.Size(333, 221);
+            this.panelLoadSave.TabIndex = 4;
+            this.panelLoadSave.Visible = false;
+            // 
+            // lblSaveLoadMessage
+            // 
+            this.lblSaveLoadMessage.AutoSize = true;
+            this.lblSaveLoadMessage.Location = new System.Drawing.Point(192, 113);
+            this.lblSaveLoadMessage.Name = "lblSaveLoadMessage";
+            this.lblSaveLoadMessage.Size = new System.Drawing.Size(99, 13);
+            this.lblSaveLoadMessage.TabIndex = 14;
+            this.lblSaveLoadMessage.Text = "SaveLoadMessage";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(235, 119);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(0, 13);
+            this.label5.TabIndex = 13;
+            // 
+            // rbSave3
+            // 
+            this.rbSave3.AutoSize = true;
+            this.rbSave3.Location = new System.Drawing.Point(108, 148);
+            this.rbSave3.Name = "rbSave3";
+            this.rbSave3.Size = new System.Drawing.Size(14, 13);
+            this.rbSave3.TabIndex = 12;
+            this.rbSave3.TabStop = true;
+            this.rbSave3.UseVisualStyleBackColor = true;
+            this.rbSave3.Click += new System.EventHandler(this.rbSave3_Click);
+            // 
+            // rbSave2
+            // 
+            this.rbSave2.AutoSize = true;
+            this.rbSave2.Location = new System.Drawing.Point(108, 99);
+            this.rbSave2.Name = "rbSave2";
+            this.rbSave2.Size = new System.Drawing.Size(14, 13);
+            this.rbSave2.TabIndex = 11;
+            this.rbSave2.TabStop = true;
+            this.rbSave2.UseVisualStyleBackColor = true;
+            this.rbSave2.Click += new System.EventHandler(this.rbSave2_Click);
+            // 
+            // rbSave1
+            // 
+            this.rbSave1.AutoSize = true;
+            this.rbSave1.Location = new System.Drawing.Point(108, 49);
+            this.rbSave1.Name = "rbSave1";
+            this.rbSave1.Size = new System.Drawing.Size(14, 13);
+            this.rbSave1.TabIndex = 10;
+            this.rbSave1.TabStop = true;
+            this.rbSave1.UseVisualStyleBackColor = true;
+            this.rbSave1.Click += new System.EventHandler(this.rbSave1_Click);
+            // 
+            // lblSave3
+            // 
+            this.lblSave3.AutoSize = true;
+            this.lblSave3.Location = new System.Drawing.Point(52, 149);
+            this.lblSave3.Name = "lblSave3";
+            this.lblSave3.Size = new System.Drawing.Size(36, 13);
+            this.lblSave3.TabIndex = 9;
+            this.lblSave3.Text = "save3";
+            // 
+            // lblSave2
+            // 
+            this.lblSave2.AutoSize = true;
+            this.lblSave2.Location = new System.Drawing.Point(52, 99);
+            this.lblSave2.Name = "lblSave2";
+            this.lblSave2.Size = new System.Drawing.Size(36, 13);
+            this.lblSave2.TabIndex = 8;
+            this.lblSave2.Text = "save2";
+            // 
+            // lblSave1
+            // 
+            this.lblSave1.AutoSize = true;
+            this.lblSave1.Location = new System.Drawing.Point(52, 49);
+            this.lblSave1.Name = "lblSave1";
+            this.lblSave1.Size = new System.Drawing.Size(36, 13);
+            this.lblSave1.TabIndex = 7;
+            this.lblSave1.Text = "save1";
+            // 
+            // textBoxSaveName
+            // 
+            this.textBoxSaveName.Location = new System.Drawing.Point(199, 90);
+            this.textBoxSaveName.Name = "textBoxSaveName";
+            this.textBoxSaveName.Size = new System.Drawing.Size(105, 20);
+            this.textBoxSaveName.TabIndex = 6;
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(212, 149);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(75, 23);
+            this.btnLoad.TabIndex = 1;
+            this.btnLoad.Text = "Load";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(212, 65);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click_1);
+            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 462);
+            this.Controls.Add(this.panelLoadSave);
             this.Controls.Add(this.panelList);
             this.Controls.Add(this.panelMenu);
             this.Controls.Add(this.rtbUI);
@@ -317,13 +453,14 @@
             this.Controls.Add(this.panelTournamentSelector);
             this.Name = "UI";
             this.Text = "Gladius";
-            this.Load += new System.EventHandler(this.UI_Load);
             this.panelMenu.ResumeLayout(false);
             this.panelTravel.ResumeLayout(false);
             this.panelList.ResumeLayout(false);
             this.panelList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUI)).EndInit();
             this.panelTournamentSelector.ResumeLayout(false);
+            this.panelLoadSave.ResumeLayout(false);
+            this.panelLoadSave.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -332,7 +469,7 @@
 
         private System.Windows.Forms.RichTextBox rtbUI;
         public System.Windows.Forms.Panel panelMenu;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnSaveLoad;
         private System.Windows.Forms.Button btnTravel;
         private System.Windows.Forms.Button btnArena;
         private System.Windows.Forms.Button btnMyGlad;
@@ -354,5 +491,17 @@
         private System.Windows.Forms.Panel panelTournamentSelector;
         private System.Windows.Forms.Button btnEnterTournament;
         private System.Windows.Forms.Button btnMyTrophies;
+        private System.Windows.Forms.Panel panelLoadSave;
+        private System.Windows.Forms.Label lblSave3;
+        private System.Windows.Forms.Label lblSave2;
+        private System.Windows.Forms.Label lblSave1;
+        private System.Windows.Forms.TextBox textBoxSaveName;
+        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.RadioButton rbSave3;
+        private System.Windows.Forms.RadioButton rbSave2;
+        private System.Windows.Forms.RadioButton rbSave1;
+        private System.Windows.Forms.Label lblSaveLoadMessage;
     }
 }

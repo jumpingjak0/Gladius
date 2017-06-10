@@ -1,0 +1,7 @@
+Player Gold|0
+Gladiators|4
+Quintos||A hulking menace.|0|1|1|3|1
+Decidos||A graceful dancer of death.|0|1|1|3|1
+Brutus||A man of pure muscle.|0|1|1|3|1
+Trophies|0
+Inventory|0

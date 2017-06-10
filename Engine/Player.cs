@@ -8,7 +8,6 @@ namespace Engine
 {
     static public class Player
     {
-        static public string Name;
         static public int Gold;
         static public List<Gladiator> MySchool;
         static public List<InventoryItem> Inventory;
@@ -18,11 +17,7 @@ namespace Engine
 
         static Player()
         {
-            Name = "Jack";
-            Gold = 300;
-            Inventory = null;
-            Trophies = null;
-            CurrentTown = null;
+            Gold = 300;          
             MySchool = new List<Gladiator>();
             Inventory = new List<InventoryItem>();
             Trophies = new List<Trophy>();
