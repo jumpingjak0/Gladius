@@ -4,7 +4,7 @@ Planned feautures
   - [x] Ability to load.
   - [x] Ability to save.
   - [ ] Different battlefields actually being different shapes.
-  - [ ] Random generation of gladiators in shop.
+  - [ ] Random generation of gladiators in shop. Need to add different shops for each city.
   - [ ] Add limit to players team size.
   - [ ] Improve combat methods, damage calculation etc.
   - [ ] Improve enemy team AI.
