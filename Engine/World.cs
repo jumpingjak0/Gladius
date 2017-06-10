@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Engine
 {
@@ -121,17 +122,15 @@ namespace Engine
         {
             WorldTournaments.Add(new Tournament(TOURNAMENT_ID_PROCTORIAOPEN, TOWN_ID_PROCTORIA, "Proctorian Open", 
                 "The easiest tournament in Proctoria", TrophyByID(TOURNAMENT_ID_PROCTORIAOPEN), 10, 20, 
-                    PopulateListOfGladiators(3, "Praxos|Quintos|Smirnoff", "A hulking menace.|A nomadic tribesman.|A towering figure.", 
-                        "0|100|100", "111", "111")));
+                    PopulateListOfGladiators(2, TOWN_ID_PROCTORIA, "0|0|0", "111", "111")));
             WorldTournaments.Add(new Tournament(TOURNAMENT_ID_ATTELAIRROOKIES, TOWN_ID_ATTELAIR, "Attelair Rookies", "The entry level tournament in Attelair",
-                TrophyByID(TOURNAMENT_ID_ATTELAIRROOKIES), 50, 100, PopulateListOfGladiators(3, 
-                    "Ervairn|Tregarn|Eridor", "A murderous looking brute.|Tall and slender.|Covered in sinewy muscle.", "100|300|300", "222", "222")));
+                TrophyByID(TOURNAMENT_ID_ATTELAIRROOKIES), 50, 100, PopulateListOfGladiators(3, TOWN_ID_ATTELAIR, "100|300|300", "222", "222")));
             WorldTournaments.Add(new Tournament(TOURNAMENT_ID_CTHAKMIJASPIRANTS, TOWN_ID_CTHAKMIJ, 
                 "Cthak Mij Aspirants", "The tournament to prove your mettle in Cthak Mij", 
-                    TrophyByID(TOURNAMENT_ID_CTHAKMIJASPIRANTS), 50, 100, PopulateListOfGladiators(5, "Warn|Twarn|Thward|Quarn|Pwarn", 
-                        "one|two|three|four|five", "0|0|0|0|0", "11111", "11111")));
-            WorldTournaments.Add(new Tournament(TOURNAMENT_ID_ELLANERAANSAPLINGS, TOWN_ID_ELLANERAAN, "Ellaneraan Sapling", "The first tournament available amongst the trees.", TrophyByID(TOURNAMENT_ID_ELLANERAANSAPLINGS), 100, 200, PopulateListOfGladiators(4, "Dryada|Rhodendra|Rosathorn|Daffelia", "one|two|three|four", "100|300|100|300", "1212", "2121")));
-            
+                    TrophyByID(TOURNAMENT_ID_CTHAKMIJASPIRANTS), 50, 100, PopulateListOfGladiators(5, TOWN_ID_CTHAKMIJ, "0|0|0|0|0", "11111", "11111")));
+            WorldTournaments.Add(new Tournament(TOURNAMENT_ID_ELLANERAANSAPLINGS, TOWN_ID_ELLANERAAN, "Ellaneraan Sapling", "The first tournament available amongst the trees.",
+                TrophyByID(TOURNAMENT_ID_ELLANERAANSAPLINGS), 100, 200, PopulateListOfGladiators(4, TOWN_ID_ELLANERAAN, 
+                    "100|300|100|300", "1212", "2121")));            
         }
         public static void PopulateArena()
         {
@@ -149,11 +148,25 @@ namespace Engine
         {
             ItemShops.Add(new ItemShop(ITEM_SHOP_ID_PROCTORIA, "Market", "Protus", "A large market stall filled with weapons and armour.", ShopItems));
         }
-        public static List<Gladiator> PopulateListOfGladiators(int numberOfGladiators, string names, string descriptions, string exp, string weapons, string armours)
+        public static List<Gladiator> PopulateListOfGladiators(int numberOfGladiators,int townID, string exp, string weapons, string armours)
         {
             List<Gladiator> list = new List<Gladiator>();
-            string[] Names = names.Split('|');
-            string[] Descriptions = descriptions.Split('|');
+
+            StreamReader readerName = new StreamReader("gladiatorNamesList" + townID + ".txt");
+            List<string> names = new List<string>();
+            while(!readerName.EndOfStream)
+            {
+                names.Add(readerName.ReadLine());
+            }
+            readerName.Close();
+
+            StreamReader readerDescription = new StreamReader("gladiatorDescriptionList" + townID + ".txt");
+            List<string> descriptions = new List<string>();
+            while(!readerDescription.EndOfStream)
+            {
+                descriptions.Add(readerDescription.ReadLine());
+            }
+           
             string[] stringEXPs = exp.Split('|');
             List<int> EXPs = new List<int>();
             foreach(string exps in stringEXPs)
@@ -163,9 +176,12 @@ namespace Engine
             char[] WeaponIDs = weapons.ToCharArray();
             char[] ArmourIDS = armours.ToCharArray();
 
+            
             for(int i = 0; i < numberOfGladiators; i++)
             {
-                Gladiator tempGlad = new Gladiator(Names[i], Descriptions[i]);
+                int nameNumber = RandomNumberGenerator.RandomNumber(0, names.Count - 1);
+                int descriptionNumber = RandomNumberGenerator.RandomNumber(0, descriptions.Count - 1);
+                Gladiator tempGlad = new Gladiator(names[nameNumber],descriptions[descriptionNumber]);
                 tempGlad.EXP = EXPs[i];
                 tempGlad.WeaponEquipped = WeaponByID((int)Char.GetNumericValue(WeaponIDs[i]));
                 tempGlad.ArmourEquipped = ArmourByID((int)Char.GetNumericValue(ArmourIDS[i]));

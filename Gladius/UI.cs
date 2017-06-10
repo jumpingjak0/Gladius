@@ -77,15 +77,20 @@ namespace Gladius
 
         private void btnArena_Click(object sender, EventArgs e)
         {
-            HidePanels();
-            panelTournamentSelector.Visible = true;
-            cbTournament.DataSource = Player.CurrentTown.Arena.Tournaments;
-            cbTournament.DisplayMember = "Name";
-            cbTournament.ValueMember = "ID";
-            cbTournament.SelectedIndex = 0;
-            
+            if (Player.MySchool.Count != 0)
+            {
+                HidePanels();
+                panelTournamentSelector.Visible = true;
+                cbTournament.DataSource = Player.CurrentTown.Arena.Tournaments;
+                cbTournament.DisplayMember = "Name";
+                cbTournament.ValueMember = "ID";
+                cbTournament.SelectedIndex = 0;
+            }
+            else
+            {
+                rtbUI.Text += Environment.NewLine + "You have no gladiators with which to enter the arena." + Environment.NewLine;
+            }
         }
-
         private void btnEnterTournament_Click(object sender, EventArgs e)
         {
             Tournament currentTournament = (Tournament)cbTournament.SelectedItem;
@@ -94,10 +99,10 @@ namespace Gladius
             bf.Show();
             HidePanels();
         }
-
-        public void MenuVisibilty(bool visibility)
+        private void cbTournament_SelectedIndexChanged(object sender, EventArgs e)
         {
-            panelMenu.Visible = visibility;
+            Tournament selection = (Tournament)cbTournament.SelectedItem;
+            rtbUI.Text += Environment.NewLine + Environment.NewLine + selection.Name + Environment.NewLine + selection.Description;
         }
 
         private void btnMyGlad_Click(object sender, EventArgs e)
@@ -124,13 +129,62 @@ namespace Gladius
             dgvUI.Columns[0].Width = 97;
             
         }
-
         private void btnViewGladiator_click(object sender, EventArgs e)
         {
             string gladName = (string)dgvUI.CurrentCell.Value;
             GladiatorView gv = new GladiatorView(Gladiator.PickGladiatorFromDGV(MyGladList, gladName), MyGladList, Player.Inventory);
             gv.Show();
             
+        }
+        private void buttonInventory_Click(object sender, EventArgs e)
+        {
+            dgvUI.Rows.Clear();
+            dgvUI.Visible = true;
+            buttonPurchase.Visible = true;
+            HidePanels();
+            panelList.Visible = true;
+            GoldUpdateAndVisible();
+            btnViewGladiator.Visible = false;
+            dgvUI.RowHeadersVisible = false;
+            dgvUI.ColumnCount = 3;
+            dgvUI.Columns[0].Name = "Item";
+            dgvUI.Columns[1].Name = "Price";
+            dgvUI.Columns[2].Name = "Quantity";
+
+            foreach (InventoryItem item in Player.Inventory)
+            {
+                if (item.Quantity > 0)
+                {
+                    dgvUI.Rows.Add(item.Item.Name, item.Item.Value, item.Quantity);
+                }
+            }
+            dgvUI.Columns[0].Width = 97;
+            dgvUI.Columns[1].Width = 47;
+            dgvUI.Columns[2].Width = 47;
+            dgvUI.Width = 195;
+
+
+        }
+        private void btnMyTrophies_Click(object sender, EventArgs e)
+        {
+            btnViewGladiator.Visible = false;
+            HidePanels();
+            panelList.Visible = true;
+            buttonPurchase.Visible = false;
+            labelGold.Visible = false;
+
+            dgvUI.ColumnHeadersVisible = false;
+            dgvUI.ColumnCount = 2;
+            dgvUI.Columns[0].Name = "Trophy";
+            dgvUI.Columns[1].Name = "Description";
+            dgvUI.Rows.Clear();
+            foreach (Trophy trophy in Player.Trophies)
+            {
+                dgvUI.Rows.Add(trophy.Name, trophy.Description);
+            }
+            dgvUI.Columns[1].Width = 240;
+            dgvUI.Width = 400;
+            dgvUI.Columns[0].Width = 150;
         }
 
         private void btnGladShop_Click(object sender, EventArgs e)
@@ -141,7 +195,7 @@ namespace Gladius
             shopType = ShopType.Gladiator;
             GladiatorShop currentShop = World.GladiatorShopByID(Player.CurrentTown.GladiatorShop.ID);
             rtbUI.Text += Environment.NewLine + currentShop.Name + Environment.NewLine
-                + currentShop.Description + Environment.NewLine;
+                + currentShop.Description + Environment.NewLine + currentShop.VendorName + ": What can I do for you today?" + Environment.NewLine;
             MyGladList = false;
             HidePanels();
             panelList.Visible = true;
@@ -161,7 +215,6 @@ namespace Gladius
             dgvUI.Columns[0].Width = 97;
             dgvUI.Columns[1].Width = 47;
         }
-
         private void buttonPuchase_Click(object sender, EventArgs e)
         {
             switch (shopType)
@@ -206,37 +259,6 @@ namespace Gladius
             }
             
         }
-
-        private void buttonInventory_Click(object sender, EventArgs e)
-        {
-            dgvUI.Rows.Clear();
-            dgvUI.Visible = true;
-            buttonPurchase.Visible = true;
-            HidePanels();
-            panelList.Visible = true;           
-            GoldUpdateAndVisible();
-            btnViewGladiator.Visible = false;
-            dgvUI.RowHeadersVisible = false;
-            dgvUI.ColumnCount = 3;
-            dgvUI.Columns[0].Name = "Item";
-            dgvUI.Columns[1].Name = "Price";
-            dgvUI.Columns[2].Name = "Quantity";
-            
-            foreach (InventoryItem item in Player.Inventory)
-            {
-                if (item.Quantity > 0)
-                {
-                    dgvUI.Rows.Add(item.Item.Name, item.Item.Value, item.Quantity);
-                }
-            }
-            dgvUI.Columns[0].Width = 97;
-            dgvUI.Columns[1].Width = 47;
-            dgvUI.Columns[2].Width = 47;
-            dgvUI.Width = 195;
-
-
-        }
-
         private void btnShop_Click(object sender, EventArgs e)
         {
             GoldUpdateAndVisible();
@@ -247,7 +269,7 @@ namespace Gladius
             dgvUI.Visible = true;
             buttonPurchase.Visible = true;
             HidePanels();
-            panelList.Visible = true;        
+            panelList.Visible = true;
             labelGold.Visible = true;
             btnViewGladiator.Visible = false;
             labelGold.Text = "Gold: " + Player.Gold.ToString();
@@ -268,42 +290,6 @@ namespace Gladius
 
         }
 
-        private void cbTournament_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Tournament selection = (Tournament)cbTournament.SelectedItem;
-            rtbUI.Text += Environment.NewLine + Environment.NewLine + selection.Name + Environment.NewLine + selection.Description;
-        }
-
-        private void rtbUI_TextChanged(object sender, EventArgs e)
-        {
-            rtbUI.SelectionStart = rtbUI.Text.Length;
-            rtbUI.ScrollToCaret();
-        }
-
-        private void btnMyTrophies_Click(object sender, EventArgs e)
-        {
-            btnViewGladiator.Visible = false;
-            HidePanels();
-            panelList.Visible = true;
-            buttonPurchase.Visible = false;
-            labelGold.Visible = false;
-            
-            dgvUI.ColumnHeadersVisible = false;
-            dgvUI.ColumnCount = 2;
-            dgvUI.Columns[0].Name = "Trophy";
-            dgvUI.Columns[1].Name = "Description";
-            dgvUI.Rows.Clear();
-            foreach(Trophy trophy in Player.Trophies)
-            {
-                dgvUI.Rows.Add(trophy.Name, trophy.Description);
-            }
-            dgvUI.Columns[1].Width = 240;
-            dgvUI.Width = 400;
-            dgvUI.Columns[0].Width = 150;
-        }
-
-
-
         private void HidePanels()
         {
             panelList.Visible = false;
@@ -311,6 +297,16 @@ namespace Gladius
             panelTournamentSelector.Visible = false;
             panelTravel.Visible = false;
         }
+        public void MenuVisibilty(bool visibility)
+        {
+            panelMenu.Visible = visibility;
+        }
+        private void rtbUI_TextChanged(object sender, EventArgs e)
+        {
+            rtbUI.SelectionStart = rtbUI.Text.Length;
+            rtbUI.ScrollToCaret();
+        }
+
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -380,7 +376,6 @@ namespace Gladius
             lblSave2.Text = SaveNames[1];
             lblSave3.Text = SaveNames[2];
         }
-
         private void btnLoad_Click(object sender, EventArgs e)
         {
             if(saveLoadLocationSelected)
@@ -388,6 +383,7 @@ namespace Gladius
                 List<string> listOfSaves = SaveGame.ListOfSaves();
                 LoadGame.LoadGameFromFile(listOfSaves[saveLoadLocation]);
                 lblSaveLoadMessage.Text = "File Successfully Loaded";
+                lblSaveLoadMessage.Visible = true;
             }
             else
             {

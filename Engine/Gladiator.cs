@@ -40,7 +40,7 @@ namespace Engine
         public int potentialEXP;
 
 
-        public Gladiator(string name, string description, int exp = 0)
+        public Gladiator(string name, string description)
         {
             Name = name;
             Nickname = null;
