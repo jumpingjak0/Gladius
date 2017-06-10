@@ -11,10 +11,10 @@ namespace Engine
         
         public List<Gladiator> Stock;
 
-        public GladiatorShop(int id, string name, string vendorName, string description, List<Gladiator> stock): base(id, name, description, vendorName)
+        public GladiatorShop(int id, string name, string vendorName, string description): base(id, name, description, vendorName)
         {
             
-            Stock = stock;
+           
         }
 
         public string PurchaseGladiator (Gladiator boughtGladiator)

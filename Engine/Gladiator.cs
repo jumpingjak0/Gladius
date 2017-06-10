@@ -168,7 +168,7 @@ namespace Engine
             }
             else
             {
-                toUse = World.TempGladList;
+                toUse = Player.CurrentTown.GladiatorShop.Stock;
             }
 
 

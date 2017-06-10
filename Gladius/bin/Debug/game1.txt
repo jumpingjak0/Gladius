@@ -1,0 +1,19 @@
+Player Gold|1130
+Gladiators|2
+Belladonna||She towers over her enemies.|1820|3|4|3|1
+Daisania||She towers over her enemies.|2150|3|4|3|1
+Trophies|7
+11
+12
+31
+41
+13
+14
+21
+Inventory|6
+Weapon|3|0
+Weapon|1|2
+Armour|2|1
+Armour|1|2
+Armour|4|0
+Armour|2|1

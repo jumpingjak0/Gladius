@@ -454,6 +454,7 @@
             this.Controls.Add(this.panelTournamentSelector);
             this.Name = "UI";
             this.Text = "Gladius";
+            this.Load += new System.EventHandler(this.UI_Load);
             this.panelMenu.ResumeLayout(false);
             this.panelTravel.ResumeLayout(false);
             this.panelList.ResumeLayout(false);

@@ -28,8 +28,6 @@ namespace Gladius
             HidePanels();
             panelMenu.Visible = true;
             World.Create();
-            Player.CurrentTown = World.TownByID(World.TOWN_ID_PROCTORIA);
-            rtbUI.Text = Player.CurrentTown.UpdateTownDescription();
         }
 
         
@@ -49,6 +47,7 @@ namespace Gladius
         private void btnProctoria_Click(object sender, EventArgs e)
         {
             Player.CurrentTown = World.TownByID(World.TOWN_ID_PROCTORIA);
+            Player.CurrentTown.GladiatorShop.Stock = World.PopulateListOfGladiators(5, Player.CurrentTown.ID, "0|0|0|0|0", "11111", "11111");
             rtbUI.Text = Player.CurrentTown.UpdateTownDescription();
             panelTravel.Visible = false;
             panelMenu.Visible = true;
@@ -57,6 +56,8 @@ namespace Gladius
         {
             Player.CurrentTown = World.TownByID(World.TOWN_ID_CTHAKMIJ);
             rtbUI.Text = Player.CurrentTown.UpdateTownDescription();
+            Player.CurrentTown.GladiatorShop.Stock = World.PopulateListOfGladiators(5, Player.CurrentTown.ID, "0|0|0|0|0", "11111", "11111");
+
             panelTravel.Visible = false;
             panelMenu.Visible = true;
         }
@@ -64,6 +65,8 @@ namespace Gladius
         {
             Player.CurrentTown = World.TownByID(World.TOWN_ID_ELLANERAAN);
             rtbUI.Text = Player.CurrentTown.UpdateTownDescription();
+            Player.CurrentTown.GladiatorShop.Stock = World.PopulateListOfGladiators(5, Player.CurrentTown.ID, "0|0|0|0|0", "11111", "11111");
+
             panelTravel.Visible = false;
             panelMenu.Visible = true;
         }
@@ -71,6 +74,8 @@ namespace Gladius
         {
             Player.CurrentTown = World.TownByID(World.TOWN_ID_ATTELAIR);
             rtbUI.Text = Player.CurrentTown.UpdateTownDescription();
+            Player.CurrentTown.GladiatorShop.Stock = World.PopulateListOfGladiators(5, Player.CurrentTown.ID, "0|0|0|0|0", "11111", "11111");
+
             panelTravel.Visible = false;
             panelMenu.Visible = true;
         }
@@ -224,12 +229,12 @@ namespace Gladius
                         try
                         {
                             rtbUI.Text += Environment.NewLine + 
-                                (World.GladiatorShopByID(World.GLADIATOR_SHOP_ID_PROCTORIA).PurchaseGladiator
+                                (World.GladiatorShopByID(Player.CurrentTown.GladiatorShop.ID).PurchaseGladiator
                                     (Gladiator.PickGladiatorFromDGV(MyGladList, (string)dgvUI.CurrentCell.Value))) 
                                         + Environment.NewLine;
                             GoldUpdateAndVisible();
                             dgvUI.Rows.Clear();
-                            foreach (Gladiator gladiator in World.TempGladList)
+                            foreach (Gladiator gladiator in Player.CurrentTown.GladiatorShop.Stock)
                             {
                                 dgvUI.Rows.Add(gladiator.Name, gladiator.Value);
                             }
@@ -278,7 +283,7 @@ namespace Gladius
             dgvUI.Columns[0].Name = "Item";
             dgvUI.Columns[1].Name = "Price";
             rtbUI.Text += Environment.NewLine + currentShop.Name + Environment.NewLine
-                + currentShop.Description + Environment.NewLine;
+                + currentShop.Description + Environment.NewLine + currentShop.VendorName + ": What can I do for ya?" + Environment.NewLine;
 
             foreach (Item item in currentShop.Stock)
             {
@@ -390,6 +395,12 @@ namespace Gladius
                 lblSaveLoadMessage.Text = "No Load Location Selected";
                 lblSaveLoadMessage.Visible = true;
             }
+        }
+
+        private void UI_Load(object sender, EventArgs e)
+        {
+            btnTravel.PerformClick();
+            btnProctoria.PerformClick();
         }
     }
 }
