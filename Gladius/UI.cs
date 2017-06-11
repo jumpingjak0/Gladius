@@ -357,19 +357,17 @@ namespace Gladius
                 if (saveMessage == "")
                 {
                     SaveGame.SaveGameToFile(textBoxSaveName.Text, saveLoadLocation);
-                    lblSaveLoadMessage.Text = "Game successfully saved";
+                    SaveLoadMessage("Game successfully saved");
                     textBoxSaveName.Text = "";
                 }
                 else
                 {
-                    lblSaveLoadMessage.Text = saveMessage;
-                    lblSaveLoadMessage.Visible = true;
+                    SaveLoadMessage(saveMessage);
                 }
             }
             else
             {
-                lblSaveLoadMessage.Text = "No Save Location Selected";
-                lblSaveLoadMessage.Visible = true;
+                SaveLoadMessage("No save location selected");
             }
             updateSaveNames();
 
@@ -386,17 +384,26 @@ namespace Gladius
             if(saveLoadLocationSelected)
             {
                 List<string> listOfSaves = SaveGame.ListOfSaves();
-                LoadGame.LoadGameFromFile(listOfSaves[saveLoadLocation]);
-                lblSaveLoadMessage.Text = "File Successfully Loaded";
-                lblSaveLoadMessage.Visible = true;
+                if (LoadGame.LoadGameFromFile(listOfSaves[saveLoadLocation]))
+                {
+                    SaveLoadMessage("File successfully loaded");
+                }
+                else
+                {
+                    SaveLoadMessage("Problem with file, game not loaded");
+                }
             }
             else
             {
-                lblSaveLoadMessage.Text = "No Load Location Selected";
-                lblSaveLoadMessage.Visible = true;
+                SaveLoadMessage("No Load Location Selected");
             }
         }
 
+        private void SaveLoadMessage(string message)
+        {
+            lblSaveLoadMessage.Text = message;
+            lblSaveLoadMessage.Visible = true;
+        }
         private void UI_Load(object sender, EventArgs e)
         {
             btnTravel.PerformClick();

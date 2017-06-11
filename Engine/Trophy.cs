@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -32,12 +33,15 @@ namespace Engine
             }
         }
 
-        public static void LoadTrophy(int iD)
+        public static void LoadTrophy(int iD, List<Trophy> tempTrophies)
         {
             Trophy currentTrophy = World.TrophyByID(iD);
-            Player.Trophies.Add(currentTrophy);
-            currentTrophy.PlayerHasTrophy = true;
-            
+            tempTrophies.Add(currentTrophy);
+        }
+
+        internal void SaveTrophy(StreamWriter writer)
+        {
+            writer.WriteLine(ID);
         }
     }
 }

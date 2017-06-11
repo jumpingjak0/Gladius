@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Engine
 {
@@ -73,11 +74,6 @@ namespace Engine
             LevelUpGladiator();
 
         }
-
-
-
-
-
 
         public override string ToString()
         {
@@ -150,6 +146,12 @@ namespace Engine
             }
         }
 
+        public void SaveGladiator(StreamWriter writer)
+        {
+            string gladiatorInformation;                      
+            gladiatorInformation = Name + "|" + Nickname + "|" + Description + "|" + EXP + "|" + WeaponEquipped.ID + "|" + ArmourEquipped.ID + "|" + MovementRange + "|" + AttackRange;
+            writer.WriteLine(gladiatorInformation);         
+        }
 
         public void StatGladiatorUpToLevel()
         {

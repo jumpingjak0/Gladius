@@ -1,0 +1,8 @@
+Player Gold|20
+Gladiators|2
+Balista||A hulking brute.|0|1|1|3|1
+Sulla||A hulking brute.|0|1|1|3|1
+Trophies|0
+Inventory|2
+Armour|2|1
+Weapon|3|1

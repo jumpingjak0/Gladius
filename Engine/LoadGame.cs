@@ -6,16 +6,50 @@ using System.IO;
 
 namespace Engine
 {
-    public class LoadGame
+    public static class LoadGame
     {
-        public static void LoadGameFromFile(string filename)
+        private static bool loadSuccessfull;
+
+        public static bool LoadGameFromFile(string filename)
         {
+            loadSuccessfull = true;
+            int tempGold;
+            List<Gladiator> tempGladiators = new List<Gladiator>(); ;
+            List<InventoryItem> tempInventory = new List<InventoryItem>();
+            List<Trophy> tempTrophies = new List<Trophy>();
+
             StreamReader reader = new StreamReader(filename + ".txt");
             string playerGold = reader.ReadLine();
-            LoadGold(playerGold);
-            LoadGladiators(ParseLoadSection(reader));
-            LoadTrophies(ParseLoadSection(reader));
-            LoadInventory(ParseLoadSection(reader));
+            tempGold = LoadGold(playerGold);
+            LoadGladiators(ParseLoadSection(reader), tempGladiators);
+            LoadTrophies(ParseLoadSection(reader), tempTrophies);
+            LoadInventory(ParseLoadSection(reader), tempInventory);
+            reader.Close();
+            if(loadSuccessfull)
+            {
+                OverWriteCurrentGame(tempGold, tempGladiators, tempInventory, tempTrophies);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static void OverWriteCurrentGame(int tempGold, List<Gladiator> tempGladiators, List<InventoryItem> tempInventory, List<Trophy> tempTrophies)
+        {
+            Player.Gold = tempGold;
+            Player.Inventory = tempInventory;
+            Player.MySchool = tempGladiators;
+            foreach(Trophy trophy in Player.Trophies)
+            {
+                trophy.PlayerHasTrophy = false;
+            }
+            Player.Trophies = tempTrophies;
+            foreach(Trophy trophy in Player.Trophies)
+            {
+                trophy.PlayerHasTrophy = true;
+            }
         }
 
         private static int FindNumberOfItems(string input)
@@ -35,55 +69,83 @@ namespace Engine
             return loadParts;
         }
 
-        private static void LoadGold(string playerGold)
+        private static int LoadGold(string playerGold)
         {
-            string[] gold = playerGold.Split('|');
-            Player.Gold = Int32.Parse(gold[1]);
-        }
-
-        private static void LoadGladiators(List<string> gladiatorInformation)
-        {
-            Player.MySchool.Clear();
-            foreach(string gladiatorString in gladiatorInformation)
+            try
             {
-                string[] gladiatorComponents = gladiatorString.Split('|');
-                Player.MySchool.Add(new Gladiator(gladiatorComponents[0], gladiatorComponents[1], gladiatorComponents[2],Int32.Parse(gladiatorComponents[3]), Int32.Parse(gladiatorComponents[4]), Int32.Parse(gladiatorComponents[5]), Int32.Parse(gladiatorComponents[6]), Int32.Parse(gladiatorComponents[7])));
+                string[] gold = playerGold.Split('|');
+                return Int32.Parse(gold[1]);
             }
-
-        }
-
-        private static void LoadTrophies(List<string> trophyNumbers)
-        {
-            foreach(Trophy trophy in World.Trophies)
+            catch
             {
-                trophy.PlayerHasTrophy = false;
-            }
-            Player.Trophies.Clear();
-            foreach(string number in trophyNumbers)
-            {
-                Trophy.LoadTrophy(Int32.Parse(number));
+                loadSuccessfull = false;
+                return -1;
             }
         }
 
-        private static void LoadInventory(List<string> inventoryItemDetails)
+        private static void LoadGladiators(List<string> gladiatorInformation, List<Gladiator> tempGladiators)
         {
-            Player.Inventory.Clear();
-            foreach(string iiDetails in inventoryItemDetails)
+            try
             {
-                string[] iiComponents = iiDetails.Split('|');
-                switch (iiComponents[0])
+                foreach (string gladiatorString in gladiatorInformation)
                 {
-                    case "Armour":
-                        {
-                            Player.Inventory.Add(new InventoryItem(World.ArmourByID(Int32.Parse(iiComponents[1])), Int32.Parse(iiComponents[2])));
-                            break;
-                        }
-                    case "Weapon":
-                        {
-                            Player.Inventory.Add(new InventoryItem(World.WeaponByID(Int32.Parse(iiComponents[1])), Int32.Parse(iiComponents[2])));
-                            break;
-                        }
+                    string[] gladiatorComponents = gladiatorString.Split('|');
+                    tempGladiators.Add(new Gladiator(gladiatorComponents[0], gladiatorComponents[1], gladiatorComponents[2], Int32.Parse(gladiatorComponents[3]), Int32.Parse(gladiatorComponents[4]), Int32.Parse(gladiatorComponents[5]), Int32.Parse(gladiatorComponents[6]), Int32.Parse(gladiatorComponents[7])));
                 }
+                return;
+            }
+            catch
+            {              
+                loadSuccessfull = false;
+                return;
+            }
+
+        }
+
+        private static void LoadTrophies(List<string> trophyNumbers, List<Trophy> tempTrophies)
+        {
+            try
+            {
+                foreach (string number in trophyNumbers)
+                {
+                    Trophy.LoadTrophy(Int32.Parse(number), tempTrophies);
+                }
+                return;
+            }
+            catch
+            {
+                loadSuccessfull = false;
+                return;
+            }
+        }
+
+        private static void LoadInventory(List<string> inventoryItemDetails, List<InventoryItem> tempInventory)
+        {
+            try
+            {
+                foreach (string iiDetails in inventoryItemDetails)
+                {
+                    string[] iiComponents = iiDetails.Split('|');
+                    switch (iiComponents[0])
+                    {
+                        case "Armour":
+                            {
+                                tempInventory.Add(new InventoryItem(World.ArmourByID(Int32.Parse(iiComponents[1])), Int32.Parse(iiComponents[2])));
+                                break;
+                            }
+                        case "Weapon":
+                            {
+                                tempInventory.Add(new InventoryItem(World.WeaponByID(Int32.Parse(iiComponents[1])), Int32.Parse(iiComponents[2])));
+                                break;
+                            }
+                    }
+                }
+                return;
+            }
+            catch
+            {
+                loadSuccessfull = false;
+                return;
             }
         }    
 

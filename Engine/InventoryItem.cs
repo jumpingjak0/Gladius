@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -28,5 +29,10 @@ namespace Engine
             return this.Item.Name;
         }
 
+        internal void SaveInventoryItem(StreamWriter writer)
+        {
+            string saveInformation = Item.ItemType + "|" + Item.ID + "|" + Quantity;
+            writer.WriteLine(saveInformation);
+        }
     }
 }

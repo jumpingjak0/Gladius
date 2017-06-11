@@ -12,12 +12,15 @@ namespace Engine
 
         public static void SaveGameToFile(string inFileName, int saveLocation)
         {
+            updateSaveDirectory(inFileName, saveLocation);
+
             string filename = inFileName + ".txt";
-            updateSaveDirectory(inFileName, saveLocation);        
-            SaveGold(filename);
-            SaveGladiators(filename);
-            SaveTrophies(filename);
-            SaveInventory(filename);           
+            StreamWriter writer = new StreamWriter(filename);
+            SaveGold(writer);
+            SaveGladiators(writer);
+            SaveTrophies(writer);
+            SaveInventory(writer);
+            writer.Close();
         }
 
         public static List<string> ListOfSaves()
@@ -69,46 +72,34 @@ namespace Engine
             }
         }
 
-        private static void SaveGold(string fileName)
-        {
-            StreamWriter writer = new StreamWriter(fileName);
-            writer.WriteLine("Player Gold|" + Player.Gold);
-            writer.Close();
+        private static void SaveGold(StreamWriter writer)
+        {            
+            writer.WriteLine("Player Gold|" + Player.Gold);           
         }
-        private static void SaveGladiators(string fileName)
+        private static void SaveGladiators(StreamWriter writer)
         {
-            string gladiatorInformation;
-            StreamWriter writer = new StreamWriter(fileName, append: true);
             writer.WriteLine("Gladiators|" + Player.MySchool.Count);
             foreach(Gladiator glad in Player.MySchool)
             {
-                //name|nickname|description|EXp|weapon|armour|movementRange|attackRange
-                gladiatorInformation = glad.Name + "|" + glad.Nickname + "|" + glad.Description + "|" + glad.EXP + "|" + glad.WeaponEquipped.ID + "|" + glad.ArmourEquipped.ID + "|" + glad.MovementRange + "|" + glad.AttackRange;
-                writer.WriteLine(gladiatorInformation);
+                glad.SaveGladiator(writer);
             }
-            writer.Close();
         }       
-        private static void SaveTrophies(string fileName)
+        private static void SaveTrophies(StreamWriter writer)
         {
-            StreamWriter writer = new StreamWriter(fileName,  append: true);
-            writer.WriteLine("Trophies|" + Player.Trophies.Count);
+            writer.WriteLine("Trophies|" + Player.Trophies.Count);            
+            foreach(Trophy trophy in Player.Trophies)
             {
-                foreach(Trophy trophy in Player.Trophies)
-                {
-                    writer.WriteLine(trophy.ID);
-                }
+                trophy.SaveTrophy(writer);
             }
-            writer.Close();
+            
         }
-        private static void SaveInventory(string fileName)
+        private static void SaveInventory(StreamWriter writer)
         {
-            StreamWriter writer = new StreamWriter(fileName, append: true);
             writer.WriteLine("Inventory|" + Player.Inventory.Count);
             foreach(InventoryItem ii in Player.Inventory)
             {
-                writer.WriteLine(ii.Item.ItemType + "|" + ii.Item.ID + "|" + ii.Quantity);
+                ii.SaveInventoryItem(writer);
             }
-            writer.Close();
         }
 
         static void updateSaveDirectory(string inFileName, int saveLocation)
@@ -145,7 +136,7 @@ namespace Engine
         {
             List<string> previousSaves = ListOfSaves();
             string message = "";
-            if (inFileName == "")
+            if (inFileName.Trim() == "")
             {                  
                  message = "No Save Name Entered";
                  return message;
